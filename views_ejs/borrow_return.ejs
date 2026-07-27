@@ -1,0 +1,72 @@
+<%- include('header') %>
+
+<div class="container py-3">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-7">
+            <div class="custom-card shadow-lg border-0 overflow-hidden">
+                <div class="p-4 bg-slate-900 text-white" style="background: linear-gradient(135deg, var(--blue-950) 0%, var(--blue-700) 100%);">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="p-2.5 bg-white bg-opacity-15 rounded-3">
+                            <i class="bi bi-arrow-counterclockwise fs-3 text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold mb-0 text-white">Return Book Confirmation</h4>
+                            <p class="text-white opacity-85 small mb-0">Process return transaction for "<%= bookTitle %>"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4">
+                    <div class="custom-card p-3 mb-4">
+                        <h5 class="fw-bold mb-3"><%= bookTitle %></h5>
+                        <dl class="row mb-0">
+                            <dt class="col-sm-4 text-muted small uppercase font-monospace">Borrower Name:</dt>
+                            <dd class="col-sm-8 fw-semibold"><%= record.borrowerName %></dd>
+                            
+                            <dt class="col-sm-4 text-muted small uppercase font-monospace">Borrow Date:</dt>
+                            <dd class="col-sm-8 font-monospace"><%= record.borrowDate %></dd>
+                        </dl>
+                    </div>
+
+                    <!-- FINE & OVERDUE ESTIMATOR WIDGET (₹ INR) -->
+                    <div class="p-3 mb-4 rounded border border-info border-opacity-25 bg-primary bg-opacity-10">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <span class="fw-bold text-primary small font-monospace"><i class="bi bi-calculator me-1"></i> FINE ESTIMATOR (₹ INR)</span>
+                            <span class="badge bg-primary text-white font-monospace">₹10 / Day Fine Rate</span>
+                        </div>
+                        <div class="row g-2 align-items-center">
+                            <div class="col-6">
+                                <label for="daysOverdue" class="small text-muted mb-1">Days Overdue:</label>
+                                <input type="number" id="daysOverdue" min="0" value="0" class="form-control form-control-sm" oninput="calculateFine()" />
+                            </div>
+                            <div class="col-6 text-end">
+                                <div class="small text-muted">Estimated Fine:</div>
+                                <div class="price-tag fs-5 mt-1" id="fineDisplay">₹0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form action="/Borrow/Return" method="post" class="d-flex justify-content-end gap-2">
+                        <input type="hidden" name="borrowRecordId" value="<%= record.borrowRecordId %>" />
+                        <button type="submit" class="btn btn-blue-return px-4 py-2">
+                            <i class="bi bi-check2-circle me-1"></i> Confirm Return
+                        </button>
+                        <a href="/Books/Index" class="btn btn-secondary-custom px-4 py-2">
+                            Cancel
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function calculateFine() {
+        const days = parseInt(document.getElementById('daysOverdue').value) || 0;
+        const fine = Math.max(0, days * 10);
+        document.getElementById('fineDisplay').textContent = '₹' + fine;
+    }
+</script>
+
+<%- include('footer') %>

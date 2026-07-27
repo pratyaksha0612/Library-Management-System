@@ -1,0 +1,127 @@
+        </div>
+    </main>
+
+    <!-- DYNAMIC MODERN FOOTER -->
+    <footer class="footer-dynamic mt-auto py-5">
+        <div class="container-fluid px-4">
+            <div class="row g-4 mb-4">
+                <div class="col-12 col-lg-4">
+                    <div class="d-flex align-items-center gap-2.5 mb-3">
+                        <div class="logo-emblem-svg">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 3L2 8L12 13L22 8L12 3Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M4 11.5V16.5C4 16.5 7 19.5 12 19.5C17 19.5 20 16.5 20 16.5V11.5" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 13V21" stroke="#c4b5fd" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <span class="fw-bold fs-4 text-white font-heading">PS Library Portal</span>
+                    </div>
+                    <p class="text-secondary opacity-85 small mb-3" style="max-width: 380px;">
+                        Enterprise digital library portal for literature cataloging, daily periodicals, magazine subscriptions, student memberships, and fine estimation in Indian Rupees (₹).
+                    </p>
+                    <div class="d-flex flex-wrap gap-2 align-items-center">
+                        <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-white bg-opacity-10 border border-white border-opacity-15 text-white small">
+                            <span class="pulse-dot"></span>
+                            <span class="font-monospace opacity-90" style="font-size: 0.78rem;">System Active 🟢</span>
+                        </div>
+                        <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-primary bg-opacity-20 border border-primary border-opacity-30 text-white small font-monospace" style="font-size: 0.78rem;">
+                            <i class="bi bi-clock-history text-info"></i> <span id="liveClockIST">Loading IST...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 col-lg-2 ms-lg-auto">
+                    <h6 class="text-uppercase font-monospace fw-bold text-white small mb-3">Quick Navigation</h6>
+                    <ul class="list-unstyled d-flex flex-column gap-2 small">
+                        <li><a href="/Dashboard" class="text-secondary text-decoration-none opacity-85 hover-opacity-100"><i class="bi bi-chevron-right me-1 small"></i>Dashboard</a></li>
+                        <li><a href="/Books/Index" class="text-secondary text-decoration-none opacity-85 hover-opacity-100"><i class="bi bi-chevron-right me-1 small"></i>Books Showcase</a></li>
+                        <li><a href="/Newspaper/Index" class="text-secondary text-decoration-none opacity-85 hover-opacity-100"><i class="bi bi-chevron-right me-1 small"></i>Newspapers</a></li>
+                        <li><a href="/Magazine/Index" class="text-secondary text-decoration-none opacity-85 hover-opacity-100"><i class="bi bi-chevron-right me-1 small"></i>Magazines</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h6 class="text-uppercase font-monospace fw-bold text-white small mb-3">Administrative Desk</h6>
+                    <ul class="list-unstyled d-flex flex-column gap-2 small">
+                        <li><a href="/About" class="text-secondary text-decoration-none opacity-85 hover-opacity-100"><i class="bi bi-chevron-right me-1 small"></i>About Portal</a></li>
+                        <li><a href="/Contact" class="text-secondary text-decoration-none opacity-85 hover-opacity-100"><i class="bi bi-chevron-right me-1 small"></i>Contact Desk</a></li>
+                        <li><a href="/Student/Index" class="text-secondary text-decoration-none opacity-85 hover-opacity-100"><i class="bi bi-chevron-right me-1 small"></i>Students Directory</a></li>
+                        <li><a href="/Librarian/Index" class="text-secondary text-decoration-none opacity-85 hover-opacity-100"><i class="bi bi-chevron-right me-1 small"></i>Librarians Roster</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3">
+                    <h6 class="text-uppercase font-monospace fw-bold text-info small mb-3">Contact Support</h6>
+                    <ul class="list-unstyled d-flex flex-column gap-2.5 small text-secondary opacity-90">
+                        <li class="d-flex align-items-center gap-2">
+                            <i class="bi bi-envelope-at-fill text-primary fs-6"></i>
+                            <span class="font-monospace">ipratyaksha.works@gmail.com</span>
+                        </li>
+                        <li class="d-flex align-items-center gap-2">
+                            <i class="bi bi-telephone-fill text-success fs-6"></i>
+                            <span class="font-monospace">+91 98765 43210</span>
+                        </li>
+                        <li class="d-flex align-items-center gap-2">
+                            <i class="bi bi-currency-rupee text-warning fs-6"></i>
+                            <span>All fees operating in Indian Rupees (₹)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="border-white border-opacity-15 my-4">
+
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-secondary opacity-85 small">
+                <div>
+                    &copy; 2026 <strong>PS Library System</strong>. Crafted for Pratyaksha Singh.
+                </div>
+                <div class="font-monospace" style="font-size: 0.82rem;">
+                    Node.js Express &amp; EJS Architecture
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // LIVE DYNAMIC IST DIGITAL CLOCK
+        function updateLiveISTClock() {
+            const clockEl = document.getElementById('liveClockIST');
+            if (clockEl) {
+                const now = new Date();
+                const options = { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+                clockEl.textContent = now.toLocaleTimeString('en-IN', options) + ' IST';
+            }
+        }
+        setInterval(updateLiveISTClock, 1000);
+        updateLiveISTClock();
+
+        // Light & Dark Theme Toggle Functionality
+        const themeBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+
+        function updateThemeUI(theme) {
+            if (themeIcon) {
+                if (theme === 'dark') {
+                    themeIcon.className = 'bi bi-sun-fill text-warning';
+                } else {
+                    themeIcon.className = 'bi bi-moon-stars-fill text-light';
+                }
+            }
+        }
+
+        const currentTheme = localStorage.getItem('lms_theme') || 'light';
+        updateThemeUI(currentTheme);
+
+        if (themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                const activeTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = activeTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('lms_theme', newTheme);
+                updateThemeUI(newTheme);
+            });
+        }
+    </script>
+</body>
+</html>

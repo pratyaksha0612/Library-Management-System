@@ -1,0 +1,15 @@
+<%- include('header') %>
+
+<div class="container text-center mt-5">
+    <h1 class="display-4 text-warning">Book Not Available</h1>
+    <p class="lead">
+        <% if (typeof errorMessage !== 'undefined' && errorMessage) { %>
+            <%= errorMessage %>
+        <% } else { %>
+            The book you are trying to borrow is currently not available.
+        <% } %>
+    </p>
+    <a href="/Books/Index" class="btn btn-primary">Back to Book List</a>
+</div>
+
+<%- include('footer') %>

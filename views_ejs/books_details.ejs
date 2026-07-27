@@ -1,0 +1,75 @@
+<%- include('header') %>
+
+<div class="container py-3">
+    <div class="mb-4">
+        <a href="/Books/Index" class="text-decoration-none text-muted small fw-semibold">
+            &larr; Back to Books Listing
+        </a>
+    </div>
+
+    <div class="row g-4">
+        <!-- Book Cover Column -->
+        <div class="col-md-4 col-lg-3 text-center">
+            <div class="custom-card p-3 shadow-md bg-white">
+                <img src="https://covers.openlibrary.org/b/ISBN/<%= book.isbn.replace(/-/g, '') %>-M.jpg" alt="<%= book.title %>" class="img-fluid rounded shadow-sm w-100" style="max-height: 320px; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=400&q=80'" />
+                <div class="mt-3">
+                    <% if (book.isAvailable) { %>
+                        <span class="badge-custom badge-available w-100 justify-content-center py-2 fs-6">
+                            <i class="bi bi-check-circle-fill me-1"></i> Available for Borrowing
+                        </span>
+                    <% } else { %>
+                        <span class="badge-custom badge-borrowed w-100 justify-content-center py-2 fs-6">
+                            <i class="bi bi-bookmark-fill me-1"></i> Currently Borrowed
+                        </span>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <!-- Book Details Column -->
+        <div class="col-md-8 col-lg-9">
+            <div class="custom-card shadow-md h-100 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="p-4 bg-slate-900 text-white border-bottom border-slate-800">
+                        <span class="badge bg-blue-500 bg-opacity-20 text-blue-300 font-monospace small mb-2">BOOK ENTRY #<%= book.bookId %></span>
+                        <h3 class="fw-bold mb-1"><%= book.title %></h3>
+                        <p class="text-slate-400 mb-0">By <%= book.author %></p>
+                    </div>
+
+                    <div class="p-4">
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <div class="p-3 bg-slate-50 rounded border border-slate-200">
+                                    <span class="text-muted small text-uppercase font-monospace">ISBN Code</span>
+                                    <div class="fw-bold text-slate-800 font-monospace fs-5 mt-1"><%= book.isbn %></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="p-3 bg-slate-50 rounded border border-slate-200">
+                                    <span class="text-muted small text-uppercase font-monospace">Publication Date</span>
+                                    <div class="fw-bold text-slate-800 fs-5 mt-1"><%= book.publishedDate %></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <h6 class="fw-bold text-slate-900 mb-2">Book Description</h6>
+                            <p class="text-muted small leading-relaxed">This volume is part of the central library reference repository. It provides key concepts, technical patterns, and reference material for students and faculty members.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4 border-top d-flex gap-2">
+                    <a href="/Books/Edit/<%= book.bookId %>" class="btn btn-blue-edit font-monospace">
+                        <i class="bi bi-pencil-square me-1"></i> Edit Book Details
+                    </a>
+                    <a href="/Books/Index" class="btn btn-secondary-custom font-monospace">
+                        <i class="bi bi-arrow-left me-1"></i> Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('footer') %>

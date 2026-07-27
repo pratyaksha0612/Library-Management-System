@@ -1,0 +1,61 @@
+<%- include('header') %>
+
+<div class="container py-3">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="custom-card shadow-lg border-0 overflow-hidden">
+                <div class="p-4 bg-slate-900 text-white border-bottom border-slate-800">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="p-2.5 bg-blue-600 bg-opacity-20 text-blue-400 rounded-3">
+                            <i class="bi bi-person-badge fs-3"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold mb-0">Add New Librarian</h4>
+                            <p class="text-slate-400 small mb-0">Register a new staff member to the library administration team.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4">
+                    <form action="/Librarian/Create" method="post" onsubmit="return validateForm();">
+                        <div class="mb-3">
+                            <label for="Name" class="form-label fw-semibold text-slate-700">Librarian Name</label>
+                            <input id="Name" name="name" class="form-control py-2" placeholder="e.g. Sarah Connor" autofocus />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Age" class="form-label fw-semibold text-slate-700">Age</label>
+                            <input id="Age" name="age" type="number" class="form-control py-2" placeholder="e.g. 34" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="Phone" class="form-label fw-semibold text-slate-700">Phone Number</label>
+                            <input id="Phone" name="phone" class="form-control py-2" placeholder="e.g. 555-0201" />
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+                            <button type="submit" class="btn btn-primary-custom px-4 py-2">
+                                <i class="bi bi-plus-circle me-1"></i> Add Librarian
+                            </button>
+                            <a href="/Librarian/Index" class="btn btn-secondary-custom px-4 py-2">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function validateForm() {
+        const name = document.querySelector('[name="name"]').value.trim();
+        const age = document.querySelector('[name="age"]').value.trim();
+        const phone = document.querySelector('[name="phone"]').value.trim();
+        if (!name || !age || !phone) {
+            alert("All fields are required: Name, Age, Phone.");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+<%- include('footer') %>

@@ -1,0 +1,72 @@
+<%- include('header') %>
+
+<div class="container py-3">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-7">
+            <div class="custom-card shadow-lg border-0 overflow-hidden">
+                <div class="p-4 bg-slate-900 text-white border-bottom border-slate-800">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="p-2.5 bg-amber-500 bg-opacity-20 text-amber-400 rounded-3">
+                            <i class="bi bi-pencil-square fs-3 text-warning"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold mb-0">Edit Newspaper Record</h4>
+                            <p class="text-slate-400 small mb-0">Update publication details for Newspaper #<%= newspaper.newspaperId %></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4">
+                    <form action="/Newspaper/Edit/<%= newspaper.newspaperId %>" method="post">
+                        <input type="hidden" name="newspaperId" value="<%= newspaper.newspaperId %>" />
+                        <div class="mb-3">
+                            <label for="title" class="form-label fw-semibold">Newspaper Title</label>
+                            <input id="title" name="title" class="form-control py-2" value="<%= newspaper.title %>" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="publisher" class="form-label fw-semibold">Publisher</label>
+                            <input id="publisher" name="publisher" class="form-control py-2" value="<%= newspaper.publisher %>" required />
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label for="language" class="form-label fw-semibold">Language</label>
+                                <input id="language" name="language" class="form-control py-2" value="<%= newspaper.language %>" required />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="category" class="form-label fw-semibold">Category</label>
+                                <input id="category" name="category" class="form-control py-2" value="<%= newspaper.category %>" required />
+                            </div>
+                        </div>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label for="dailyPrice" class="form-label fw-semibold">Daily Price (₹ INR)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">₹</span>
+                                    <input id="dailyPrice" name="dailyPrice" type="number" step="0.5" class="form-control py-2" value="<%= newspaper.dailyPrice %>" required />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="subscriptionType" class="form-label fw-semibold">Subscription Type</label>
+                                <select id="subscriptionType" name="subscriptionType" class="form-select py-2">
+                                    <option value="Daily Edition" <%= newspaper.subscriptionType === 'Daily Edition' ? 'selected' : '' %>>Daily Edition</option>
+                                    <option value="Weekday Edition" <%= newspaper.subscriptionType === 'Weekday Edition' ? 'selected' : '' %>>Weekday Edition</option>
+                                    <option value="Weekend Edition" <%= newspaper.subscriptionType === 'Weekend Edition' ? 'selected' : '' %>>Weekend Edition</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+                            <button type="submit" class="btn btn-primary-custom px-4 py-2">
+                                <i class="bi bi-save me-1"></i> Update Newspaper
+                            </button>
+                            <a href="/Newspaper/Index" class="btn btn-secondary-custom px-4 py-2">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('footer') %>

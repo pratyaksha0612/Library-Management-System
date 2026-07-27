@@ -1,0 +1,55 @@
+<%- include('header') %>
+
+<div class="container py-3">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-7">
+            <div class="custom-card shadow-lg border-0 overflow-hidden">
+                <div class="p-4 bg-slate-900 text-white border-bottom border-slate-800">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="p-2.5 bg-blue-600 bg-opacity-20 text-blue-400 rounded-3">
+                            <i class="bi bi-box-arrow-up-right fs-3"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold mb-0">Borrow Book Confirmation</h4>
+                            <p class="text-slate-400 small mb-0">Process borrowing request for "<%= book.title %>"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4">
+                    <div class="p-3 bg-blue-50 border border-blue-200 rounded mb-4">
+                        <span class="text-uppercase font-monospace text-blue-700 small font-semibold">Target Book</span>
+                        <h5 class="fw-bold text-blue-900 mb-0 mt-1"><%= book.title %></h5>
+                        <div class="text-blue-700 small font-monospace mt-1">ISBN: <%= book.isbn %></div>
+                    </div>
+
+                    <form action="/Borrow/Create" method="post">
+                        <input type="hidden" name="bookId" value="<%= book.bookId %>" />
+                        <div class="mb-3">
+                            <label for="borrowerName" class="form-label fw-semibold text-slate-700">Borrower Full Name</label>
+                            <input id="borrowerName" name="borrowerName" class="form-control py-2" placeholder="e.g. Pranaya Kumar" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="borrowerEmail" class="form-label fw-semibold text-slate-700">Borrower Email Address</label>
+                            <input id="borrowerEmail" name="borrowerEmail" class="form-control py-2" type="email" placeholder="e.g. borrower@example.com" required />
+                        </div>
+                        <div class="mb-4">
+                            <label for="phone" class="form-label fw-semibold text-slate-700">Phone Number</label>
+                            <input id="phone" name="phone" class="form-control py-2" placeholder="e.g. 1234567890" required />
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+                            <button type="submit" class="btn btn-primary-custom px-4 py-2">
+                                <i class="bi bi-check-circle me-1"></i> Confirm Borrow
+                            </button>
+                            <a href="/Books/Index" class="btn btn-secondary-custom px-4 py-2">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('footer') %>

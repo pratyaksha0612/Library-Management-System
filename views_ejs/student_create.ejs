@@ -1,0 +1,61 @@
+<%- include('header') %>
+
+<div class="container py-3">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="custom-card shadow-lg border-0 overflow-hidden">
+                <div class="p-4 bg-slate-900 text-white border-bottom border-slate-800">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="p-2.5 bg-blue-600 bg-opacity-20 text-blue-400 rounded-3">
+                            <i class="bi bi-person-plus fs-3"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold mb-0">Add New Student</h4>
+                            <p class="text-slate-400 small mb-0">Register a new student member to the library system.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4">
+                    <form action="/Student/Create" method="post" onsubmit="return validateForm();">
+                        <div class="mb-3">
+                            <label for="StudentName" class="form-label fw-semibold text-slate-700">Student Name</label>
+                            <input id="StudentName" name="studentName" class="form-control py-2" placeholder="e.g. Alice Johnson" autofocus />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Email" class="form-label fw-semibold text-slate-700">Email Address</label>
+                            <input id="Email" name="email" type="email" class="form-control py-2" placeholder="e.g. alice@example.com" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="Phone" class="form-label fw-semibold text-slate-700">Phone Number</label>
+                            <input id="Phone" name="phone" class="form-control py-2" placeholder="e.g. 555-0101" />
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+                            <button type="submit" class="btn btn-primary-custom px-4 py-2">
+                                <i class="bi bi-plus-circle me-1"></i> Add Student
+                            </button>
+                            <a href="/Student/Index" class="btn btn-secondary-custom px-4 py-2">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function validateForm() {
+        const studentname = document.querySelector('[name="studentName"]').value.trim();
+        const email = document.querySelector('[name="email"]').value.trim();
+        const phone = document.querySelector('[name="phone"]').value.trim();
+        if (!studentname || !email || !phone) {
+            alert("All fields are required: StudentName, Email, and Phone.");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+<%- include('footer') %>

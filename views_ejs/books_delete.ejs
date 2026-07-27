@@ -1,0 +1,55 @@
+<%- include('header') %>
+
+<div class="container py-3">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-7">
+            <div class="custom-card shadow-lg border-0 overflow-hidden">
+                <div class="p-4 bg-slate-900 text-white" style="background: linear-gradient(135deg, var(--blue-950) 0%, var(--blue-800) 100%);">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="p-2 bg-white bg-opacity-15 rounded-3">
+                            <i class="bi bi-info-circle-fill fs-3 text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold mb-0 text-white">Confirm Deletion</h4>
+                            <p class="text-white opacity-85 small mb-0">This action will permanently delete this book entry.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4">
+                    <div class="alert alert-custom-blue mb-4" role="alert">
+                        <strong>Notice:</strong> Are you sure you want to delete <strong>"<%= book.title %>"</strong>? Once deleted, this action cannot be undone.
+                    </div>
+
+                    <div class="custom-card p-3 mb-4">
+                        <dl class="row mb-0">
+                            <dt class="col-sm-4 text-muted small uppercase font-monospace">Title:</dt>
+                            <dd class="col-sm-8 fw-bold"><%= book.title %></dd>
+                            
+                            <dt class="col-sm-4 text-muted small uppercase font-monospace">Author:</dt>
+                            <dd class="col-sm-8"><%= book.author %></dd>
+                            
+                            <dt class="col-sm-4 text-muted small uppercase font-monospace">ISBN:</dt>
+                            <dd class="col-sm-8 font-monospace"><%= book.isbn %></dd>
+                            
+                            <dt class="col-sm-4 text-muted small uppercase font-monospace">Published Date:</dt>
+                            <dd class="col-sm-8"><%= book.publishedDate %></dd>
+                        </dl>
+                    </div>
+
+                    <form action="/Books/Delete/<%= book.bookId %>" method="post" class="d-flex justify-content-end gap-2">
+                        <input type="hidden" name="bookId" value="<%= book.bookId %>" />
+                        <button type="submit" class="btn btn-blue-delete px-4 py-2">
+                            <i class="bi bi-trash-fill me-1"></i> Confirm Delete
+                        </button>
+                        <a href="/Books/Index" class="btn btn-secondary-custom px-4 py-2">
+                            Cancel
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('footer') %>
