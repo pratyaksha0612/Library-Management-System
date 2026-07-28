@@ -1111,8 +1111,8 @@ code {
 }
 .table {
     font-family: 'Montserrat', sans-serif !important;
-    border-collapse: separate !important;
-    border-spacing: 0 4px !important; /* Space between rows */
+    border-collapse: collapse !important;
+    border-spacing: 0 !important; /* Space between rows */
     width: auto !important; margin: 0 auto !important; white-space: nowrap;
     margin-bottom: 0 !important;
 }
@@ -1167,4 +1167,22 @@ code {
 [data-theme="light"] .table thead th {
     background-color: #94a3b8 !important;
     color: #0b3d5c !important;
+}
+
+
+/* Ensure text doesn't touch the absolute edge of the container */
+.table th:first-child, .table td:first-child {
+    padding-left: 2rem !important;
+}
+.table th:last-child, .table td:last-child {
+    padding-right: 2rem !important;
+}
+
+/* Light mode table rows */
+[data-theme="light"] .table tbody tr {
+    background: #e2e8f0 !important; /* Lighter blue for content rows */
+    border-bottom: 1px solid #cbd5e1 !important; /* Subtle separator */
+}
+[data-theme="light"] .table tbody tr:hover {
+    background: #cbd5e1 !important;
 }
