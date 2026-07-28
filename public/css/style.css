@@ -534,6 +534,7 @@ code {
 }
 
 .btn-blue-edit { background-color: var(--btn-primary-bg) !important; color: #ffffff !important; }
+[data-theme="light"] .btn-blue-edit { background-color: #0b3d5c !important; color: #ffffff !important; }
 .btn-blue-delete { background-color: #C85A5A !important; color: #ffffff !important; }
 .btn-blue-borrow { background-color: #D9A441 !important; color: #ffffff !important; }
 .btn-blue-return { background-color: #5BAF7A !important; color: #ffffff !important; }
@@ -1112,13 +1113,13 @@ code {
     font-family: 'Montserrat', sans-serif !important;
     border-collapse: separate !important;
     border-spacing: 0 4px !important; /* Space between rows */
-    width: 100% !important;
+    width: auto !important; margin: 0 auto !important; white-space: nowrap;
     margin-bottom: 0 !important;
 }
 .table thead th {
     border: none !important;
     text-transform: uppercase;
-    font-size: 0.75rem !important;
+    font-size: 1rem !important; text-align: center !important;
     letter-spacing: 1.5px;
     font-weight: 700 !important;
     color: var(--text-muted) !important;
@@ -1137,6 +1138,7 @@ code {
     background: rgba(150, 150, 150, 0.1) !important;
 }
 .table tbody td {
+    text-align: center !important;
     border: none !important;
     padding: 0.6rem 1rem !important;
     vertical-align: middle;
