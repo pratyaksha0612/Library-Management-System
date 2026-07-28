@@ -7,9 +7,9 @@
             <div class="row g-4 mb-4">
                 <div class="col-12 col-lg-4">
                     <div class="d-flex align-items-center gap-2.5 mb-3">
-                        <img src="/images/logo-dark.png.png" alt="Library" class="brand-logo-always-light" style="height: 42px; width: auto; object-fit: contain;">
-                        <img src="/images/logo-white.png.png" alt="Library" class="brand-logo-always-dark" style="height: 42px; width: auto; object-fit: contain;">
-                        <span class="fw-bold fs-4 text-white font-heading">Library</span>
+                        <img src="/images/logo-dark.png.png" alt="Library" class="brand-logo-always-light" style="height: 84px; width: auto; object-fit: contain;">
+                        <img src="/images/logo-white.png.png" alt="Library" class="brand-logo-always-dark" style="height: 84px; width: auto; object-fit: contain;">
+                        <span class="fw-bold fs-3 text-white font-heading">Library</span>
                     </div>
                     <p class="text-secondary opacity-85 small mb-3" style="max-width: 380px;">
                         A premium digital library portal for literature cataloging, daily periodicals, magazine subscriptions, and student memberships.
@@ -68,7 +68,7 @@
 
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-secondary opacity-85 small">
                 <div>
-                    &copy; 2026 <strong>Kitaab Library</strong>. Crafted for modern learning.
+                    &copy; <span id="dynamicYear">2026</span> <strong>Kitaab Library</strong>. Crafted for modern learning.
                 </div>
                 <div class="font-monospace" style="font-size: 0.82rem;">
                     Node.js Express &amp; EJS Architecture
@@ -90,6 +90,10 @@
         }
         setInterval(updateLiveISTClock, 1000);
         updateLiveISTClock();
+
+        // Dynamic Year
+        const yearEl = document.getElementById('dynamicYear');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
 
         // Light & Dark Theme Toggle Functionality
         const themeBtn = document.getElementById('themeToggle');

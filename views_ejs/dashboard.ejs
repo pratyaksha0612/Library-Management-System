@@ -1,12 +1,12 @@
 <%- include('header') %>
 
-<div class="container-fluid px-4 py-5" style="max-width: 1200px; margin: 0 auto;">
+<div class="container-fluid px-4 py-3" style="max-width: 1200px; margin: 0 auto;">
     <!-- MINIMAL HERO SECTION -->
-    <div class="text-center mb-4 pb-2" style="margin-top: -20px;">
-        <img src="/images/logo-dark.png.png" alt="Library" class="brand-logo-light mx-auto mb-2" style="height: 320px; object-fit: contain;">
-        <img src="/images/logo-white.png.png" alt="Library" class="brand-logo-dark mx-auto mb-2" style="height: 320px; object-fit: contain;">
+    <div class="text-center mb-3 pb-1" style="margin-top: -60px;">
+        <img src="/images/logo-dark.png.png" alt="Library" class="brand-logo-light mx-auto mb-0" style="height: 320px; object-fit: contain;">
+        <img src="/images/logo-white.png.png" alt="Library" class="brand-logo-dark mx-auto mb-0" style="height: 320px; object-fit: contain;">
         <% if (user && user.name) { %>
-            <h1 class="display-6 fw-bold mb-0 font-heading">Welcome back, <span class="font-special" style="color: var(--btn-primary-bg);"><%= user.name.split(' ')[0] %></span></h1>
+            <h1 class="display-6 fw-bold mb-0 font-heading" style="margin-top: -20px;">Welcome back, <span class="font-special" style="color: var(--btn-primary-bg);"><%= user.name.split(' ')[0] %></span></h1>
         <% } %>
     </div>
 
@@ -24,7 +24,10 @@
         <!-- LIBRARY STATISTICS -->
         <div class="col-lg-8">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h4 class="font-heading fw-bold mb-0">Library Overview</h4>
+                <div class="d-flex align-items-center gap-3">
+                    <h4 class="font-heading fw-bold mb-0">Library Overview</h4>
+                    <span id="liveDateTime" class="badge bg-body-secondary text-secondary border fw-medium px-3 py-1"></span>
+                </div>
                 <div class="d-flex gap-4 text-secondary small fw-semibold">
                     <span>Books: <%= model.totalBooks %></span>
                     <span>Active Borrowings: <%= model.totalBorrowings %></span>
@@ -82,8 +85,8 @@
             <% if (model.topBooks && model.topBooks.length > 0) { %>
                 <% model.topBooks.forEach(book => { %>
                     <div class="col-6 col-md-3">
-                        <div class="custom-card h-100 p-3 text-center" style="transition: transform 0.3s ease;">
-                            <img src="<%= book.coverImage %>" alt="<%= book.title %>" class="img-fluid rounded mb-3" style="max-height: 200px; object-fit: contain;">
+                        <div class="h-100 text-center" style="transition: transform 0.3s ease;">
+                            <img src="<%= book.coverImage %>" alt="<%= book.title %>" class="img-fluid rounded mb-3 shadow-sm" style="max-height: 250px; object-fit: contain;">
                             <h6 class="fw-bold mb-1 text-truncate"><%= book.title %></h6>
                             <p class="text-secondary small mb-0"><%= book.author %></p>
                         </div>
@@ -97,6 +100,15 @@
 </div><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        // Live Date Time Feature
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            document.getElementById('liveDateTime').textContent = now.toLocaleDateString('en-US', options);
+        }
+        updateDateTime();
+        setInterval(updateDateTime, 60000);
+
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         const textColor = isDark ? '#ffffff' : '#1a1f1d';
         const gridColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';

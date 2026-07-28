@@ -16,11 +16,11 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
     <header>
-        <nav class="navbar navbar-expand-lg navbar-custom py-2" style="background: var(--bg-nav-override, var(--bg-nav));">
+        <nav class="navbar navbar-expand-lg navbar-custom py-1 shadow" style="background: #032014 !important;">
             <div class="container-fluid px-4">
                 <a class="navbar-brand" href="/">
-                    <img src="/images/logo-dark.png.png" alt="Library" class="brand-logo-always-light" style="height: 84px; width: auto; object-fit: contain;">
-                    <img src="/images/logo-white.png.png" alt="Library" class="brand-logo-always-dark" style="height: 84px; width: auto; object-fit: contain;">
+                    <img src="/images/logo-dark.png.png" alt="Library" class="brand-logo-always-light" style="height: 65px; width: auto; object-fit: contain;">
+                    <img src="/images/logo-white.png.png" alt="Library" class="brand-logo-always-dark" style="height: 65px; width: auto; object-fit: contain;">
                     <span class="font-heading fw-bold fs-3" style="margin-left: 10px;">Library</span>
                 </a>
 
@@ -31,10 +31,10 @@
                     </button>
 
                     <% if (isLoggedIn) { %>
-                        <a class="btn btn-sm btn-outline-light px-3 py-1 text-white border-opacity-25 ms-1" href="/Profile">
+                        <a class="btn btn-sm btn-outline-light px-3 py-1 border-opacity-25 ms-1" href="/Profile">
                             <i class="bi bi-person-circle me-1"></i> Profile
                         </a>
-                        <a class="btn btn-sm btn-outline-light px-3 py-1 text-white border-opacity-25 ms-1" href="/Logout">
+                        <a class="btn btn-sm btn-outline-light px-3 py-1 border-opacity-25 ms-1" href="/Logout">
                             <i class="bi bi-power me-1"></i> Logout
                         </a>
                     <% } %>
