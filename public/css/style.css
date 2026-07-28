@@ -1089,3 +1089,13 @@ code {
     background-color: var(--btn-primary-bg) !important;
     border-color: var(--btn-primary-bg) !important;
 }
+
+/* Table Transparency Fix */
+.table, .table > :not(caption) > * > * {
+    background-color: transparent !important;
+    color: var(--text-primary) !important;
+    border-bottom-color: var(--border-color) !important;
+}
+.table tbody tr:hover td {
+    background-color: rgba(124, 124, 124, 0.05) !important;
+}
