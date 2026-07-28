@@ -26,7 +26,7 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div class="d-flex align-items-center gap-3">
                     <h4 class="font-heading fw-bold mb-0">Library Overview</h4>
-                    <span id="liveDateTime" class="badge bg-body-secondary text-secondary border fw-medium px-3 py-1"></span>
+                    <span id="liveDateTime" class="badge border fw-medium px-3 py-1" style="background: var(--bg-card); color: var(--text-primary);"></span>
                 </div>
                 <div class="d-flex gap-4 text-secondary small fw-semibold">
                     <span>Books: <%= model.totalBooks %></span>
@@ -86,7 +86,7 @@
                 <% model.topBooks.forEach(book => { %>
                     <div class="col-6 col-md-3">
                         <div class="h-100 text-center" style="transition: transform 0.3s ease;">
-                            <img src="<%= book.coverImage %>" alt="<%= book.title %>" class="img-fluid rounded mb-3 shadow-sm" style="max-height: 250px; object-fit: contain;">
+                            <img src="<%= book.coverImage || 'https://via.placeholder.com/200x300?text=No+Cover' %>" onerror="this.src='https://via.placeholder.com/200x300?text=No+Cover'" alt="<%= book.title %>" class="img-fluid rounded mb-3 shadow-sm" style="height: 250px; width: 100%; object-fit: cover; object-position: top;">
                             <h6 class="fw-bold mb-1 text-truncate"><%= book.title %></h6>
                             <p class="text-secondary small mb-0"><%= book.author %></p>
                         </div>
