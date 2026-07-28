@@ -31,11 +31,11 @@
     <div class="row g-3 align-items-center mb-4">
         <div class="col-12 col-md-7">
             <div class="filter-tab-bar d-flex flex-wrap gap-2">
-                <button class="btn btn-outline-secondary rounded-pill px-3 filter-tab active" onclick="filterBooksGrid('all', this)">All Books</button>
-                <button class="btn btn-outline-secondary rounded-pill px-3 filter-tab" onclick="filterBooksGrid('available', this)">Available</button>
-                <button class="btn btn-outline-secondary rounded-pill px-3 filter-tab" onclick="filterBooksGrid('borrowed', this)">Borrowed</button>
-                <button class="btn btn-outline-secondary rounded-pill px-3 filter-tab" onclick="filterBooksGrid('under500', this)">Under ₹500</button>
-                <button class="btn btn-outline-secondary rounded-pill px-3 filter-tab" onclick="filterBooksGrid('over500', this)">Over ₹500</button>
+                <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 filter-tab active" onclick="filterBooksGrid('all', this)">All Books</button>
+                <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 filter-tab" onclick="filterBooksGrid('available', this)">Available</button>
+                <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 filter-tab" onclick="filterBooksGrid('borrowed', this)">Borrowed</button>
+                <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 filter-tab" onclick="filterBooksGrid('under500', this)">Under ₹500</button>
+                <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 filter-tab" onclick="filterBooksGrid('over500', this)">Over ₹500</button>
             </div>
         </div>
         <div class="col-12 col-md-5">
@@ -64,11 +64,11 @@
                  
                 <div class="book-card-vertical">
                     <!-- FULL-BLEED COVER FRAME -->
-                    <div class="book-cover-frame text-center" style="position: relative;">
-                        <img src="<%= book.coverImage || 'https://via.placeholder.com/300x400/2E6F57/ffffff?text=Book+Cover' %>" 
-                             alt="<%= book.title %> Cover" class="img-fluid rounded shadow-sm"
-                             style="max-height: 320px; object-fit: contain; <%= !book.isAvailable ? 'filter: grayscale(100%); opacity: 0.7;' : '' %>"
-                             onerror="this.src='https://via.placeholder.com/300x400/2E6F57/ffffff?text=Book+Cover'" />
+                    <div class="text-center" style="position: relative; width: 100%;">
+                        <img src="<%= book.coverImage || 'https://via.placeholder.com/300x450/2E6F57/ffffff?text=Book+Cover' %>" 
+                             alt="<%= book.title %> Cover" class="img-fluid"
+                             style="width: 100%; height: auto; aspect-ratio: 2/3; object-fit: cover; border-top-left-radius: 14px; border-top-right-radius: 14px; <%= !book.isAvailable ? 'filter: grayscale(100%); opacity: 0.7;' : '' %>"
+                             onerror="this.src='https://via.placeholder.com/300x450/2E6F57/ffffff?text=Book+Cover'" />
                         <% if (!book.isAvailable) { %>
                             <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-10deg); background: rgba(0,0,0,0.85); color: #fff; padding: 10px 0; font-weight: 800; border: 2px solid #fff; border-radius: 4px; width: 90%; text-align: center; letter-spacing: 2px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">OUT OF STOCK</div>
                         <% } %>
