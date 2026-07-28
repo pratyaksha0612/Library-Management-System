@@ -1099,28 +1099,61 @@ code {
     background-color: rgba(124, 124, 124, 0.05) !important;
 }
 
-/* Table Fonts & Padding Updates */
+
+
+/* Elegant Professional Table Pattern */
+.table-responsive {
+    overflow-x: auto;
+    padding: 1rem 0;
+}
 .table {
     font-family: 'Montserrat', sans-serif !important;
+    border-collapse: separate !important;
+    border-spacing: 0 12px !important; /* Space between rows */
+    width: 100% !important;
+    margin-bottom: 0 !important;
 }
 .table thead th {
+    border: none !important;
+    text-transform: uppercase;
+    font-size: 0.75rem !important;
+    letter-spacing: 1.5px;
     font-weight: 700 !important;
-    font-size: 0.95rem;
+    color: var(--text-muted) !important;
+    padding: 0 1.5rem 0.5rem 1.5rem !important;
+    background: transparent !important;
+}
+.table tbody tr {
+    background: rgba(150, 150, 150, 0.05) !important; /* Subtle background for row */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    border-radius: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.table tbody tr:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+    background: rgba(150, 150, 150, 0.1) !important;
 }
 .table tbody td {
-    font-weight: 400 !important;
+    border: none !important;
+    padding: 1.2rem 1.5rem !important;
+    vertical-align: middle;
+    font-weight: 500 !important;
+    color: var(--text-primary) !important;
+    white-space: normal;
 }
-.table-responsive {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+/* Rounded corners for the row items */
+.table tbody td:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+.table tbody td:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
-/* Table Compaction */
-.table {
-    width: 100% !important;
-}
-.table th, .table td {
-    padding-left: 0.75rem !important;
-    padding-right: 0.75rem !important;
-    white-space: normal; /* Allow wrapping */
+/* Fix Bootstrap background override */
+.table > :not(caption) > * > * {
+    background-color: transparent !important;
+    box-shadow: none !important;
 }
