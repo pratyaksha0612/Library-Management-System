@@ -55,7 +55,8 @@
     <!-- 3 TO 4 COLUMN BOOK CARD GRID - 100% FULLY VISIBLE COVER ARTWORK -->
     <div class="row g-4" id="booksGrid">
         <% books.forEach(function(book) { %>
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 book-item-col" 
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2 book-item-col" 
+                 data-category="<%= book.isAvailable ? 'available' : 'borrowed' %> <%= book.price < 500 ? 'under500' : 'over500' %>"
                  data-title="<%= book.title.toLowerCase() %>" 
                  data-author="<%= book.author.toLowerCase() %>" 
                  data-isbn="<%= book.isbn %>" 

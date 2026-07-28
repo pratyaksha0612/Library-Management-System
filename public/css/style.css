@@ -11,7 +11,7 @@
     --font-special: 'Cinzel', serif;
 
     /* Light Theme (Warm Off-White & Sage Green) */
-    --bg-main: #ffffff; /* Login page right column bg */
+    --bg-main: #F4F7F6; /* Soft off-white to reduce glare */
     --bg-card: #ffffff;
     --bg-nav: #0b1512;
     --bg-nav-override: #04110b; /* Darker green */
@@ -24,8 +24,8 @@
     --border-color: #e2e6e3;
     --card-shadow: 0 4px 20px -5px rgba(11, 21, 18, 0.05);
     
-    --btn-primary-bg: #082115; /* Darkest green */
-    --btn-primary-hover: #04110b;
+    --btn-primary-bg: #1B5E20; /* Pop of vibrant green */
+    --btn-primary-hover: #144917;
     --btn-primary-text: #ffffff;
     
     --table-header-bg: #eaedea;
@@ -39,8 +39,8 @@
 }
 
 [data-theme="dark"] {
-    /* Dark Theme - Kitaab Library Premium Forest Greens */
-    --bg-main: linear-gradient(135deg, #1c182c 0%, #100d1b 100%); /* Login page background color */
+    /* Dark Theme - Dark Blue and Forest Greens */
+    --bg-main: #060B19; /* Darker blue background */
     --bg-card: rgba(18, 33, 29, 0.8);
     --bg-nav: #08100E;
     --bg-nav-override: #04110b; /* Darker green */
@@ -212,7 +212,7 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 
 /* Force Left Panel to Dark Obsidian Gradient in BOTH Themes so White Text is Always Crisp! */
 .login-graphic-side {
-    background: linear-gradient(135deg, #1c182c 0%, #100d1b 100%) !important;
+    background: linear-gradient(135deg, #060B19 0%, #03060C 100%) !important;
     color: #ffffff !important;
     border-radius: 24px 0 0 24px;
     padding: 4rem 3.5rem;

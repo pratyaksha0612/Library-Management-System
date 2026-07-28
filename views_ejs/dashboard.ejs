@@ -2,22 +2,60 @@
 
 <div class="container-fluid px-4 py-3" style="max-width: 1200px; margin: 0 auto;">
     <!-- MINIMAL HERO SECTION -->
-    <div class="text-center mb-3 pb-1" style="margin-top: -60px;">
+    <div class="text-center mb-4 pb-2" style="margin-top: -60px;">
         <img src="/images/logo-dark.png.png" alt="Library" class="brand-logo-light mx-auto mb-0" style="height: 320px; object-fit: contain;">
         <img src="/images/logo-white.png.png" alt="Library" class="brand-logo-dark mx-auto mb-0" style="height: 320px; object-fit: contain;">
         <% if (user && user.name) { %>
-            <h1 class="display-6 fw-bold mb-0 font-heading" style="margin-top: -20px;">Welcome back, <span class="font-special" style="color: var(--btn-primary-bg);"><%= user.name.split(' ')[0] %></span></h1>
+            <h1 class="display-5 fw-bold mb-0 font-heading" style="margin-top: -60px; position: relative; z-index: 2;">Welcome back, <span class="font-special" style="color: var(--btn-primary-bg); text-shadow: 0 0 25px var(--btn-primary-bg), 0 5px 15px rgba(0,0,0,0.2);"><%= user.name.split(' ')[0] %></span></h1>
         <% } %>
     </div>
 
     <!-- QUICK ACTIONS (Minimal) -->
-    <div class="d-flex flex-wrap justify-content-center gap-4 mb-5 pb-5 border-bottom" style="border-color: var(--border-color) !important;">
-        <a href="/Books/Index" class="btn btn-primary-custom px-4 py-2">
+    <div class="d-flex flex-wrap justify-content-center gap-4 mb-5 pb-4 border-bottom" style="border-color: var(--border-color) !important;">
+        <a href="/Books/Index" class="btn btn-primary-custom px-4 py-2" style="box-shadow: 0 5px 15px rgba(27, 94, 32, 0.3);">
             <i class="bi bi-book me-2"></i> Browse Books
         </a>
-        <a href="/Student/Index" class="btn btn-secondary-custom px-4 py-2">
+        <a href="/Student/Index" class="btn btn-secondary-custom px-4 py-2" style="box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
             <i class="bi bi-people me-2"></i> Member Directory
         </a>
+        <a href="/Newspaper/Index" class="btn btn-secondary-custom px-4 py-2" style="box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+            <i class="bi bi-newspaper me-2"></i> Newspapers
+        </a>
+        <a href="/Magazine/Index" class="btn btn-secondary-custom px-4 py-2" style="box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+            <i class="bi bi-journal-text me-2"></i> Magazines
+        </a>
+    </div>
+
+    <!-- QUICK STATS ROW -->
+    <div class="row g-4 mb-5">
+        <div class="col-6 col-md-3">
+            <div class="custom-card p-4 text-center h-100" style="border-top: 4px solid var(--btn-primary-bg);">
+                <i class="bi bi-book-half display-6 text-secondary mb-2"></i>
+                <h3 class="fw-bold mb-1"><%= model.totalBooks %></h3>
+                <p class="text-secondary small mb-0">Total Books</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="custom-card p-4 text-center h-100" style="border-top: 4px solid var(--btn-primary-bg);">
+                <i class="bi bi-arrow-left-right display-6 text-secondary mb-2"></i>
+                <h3 class="fw-bold mb-1"><%= model.totalBorrowings %></h3>
+                <p class="text-secondary small mb-0">Active Borrowings</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="custom-card p-4 text-center h-100" style="border-top: 4px solid var(--btn-primary-bg);">
+                <i class="bi bi-people-fill display-6 text-secondary mb-2"></i>
+                <h3 class="fw-bold mb-1"><%= model.totalStudents %></h3>
+                <p class="text-secondary small mb-0">Total Members</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="custom-card p-4 text-center h-100" style="border-top: 4px solid var(--btn-primary-bg);">
+                <i class="bi bi-journal-check display-6 text-secondary mb-2"></i>
+                <h3 class="fw-bold mb-1"><%= model.totalPublications %></h3>
+                <p class="text-secondary small mb-0">Publications</p>
+            </div>
+        </div>
     </div>
 
     <div class="row g-5">
