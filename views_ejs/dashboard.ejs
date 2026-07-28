@@ -86,7 +86,7 @@
                 <% model.topBooks.forEach(book => { %>
                     <div class="col-6 col-md-3">
                         <div class="h-100 text-center" style="transition: transform 0.3s ease;">
-                            <img src="<%= book.coverImage || 'https://via.placeholder.com/200x300?text=No+Cover' %>" onerror="this.src='https://via.placeholder.com/200x300?text=No+Cover'" alt="<%= book.title %>" class="img-fluid rounded mb-3 shadow-sm" style="height: 250px; width: 100%; object-fit: cover; object-position: top;">
+                            <img src="<%= book.coverImage || 'https://via.placeholder.com/200x300?text=No+Cover' %>" onerror="this.src='https://via.placeholder.com/200x300?text=No+Cover'" alt="<%= book.title %>" class="img-fluid rounded mb-3 shadow-sm" style="height: 250px; object-fit: contain;">
                             <h6 class="fw-bold mb-1 text-truncate"><%= book.title %></h6>
                             <p class="text-secondary small mb-0"><%= book.author %></p>
                         </div>
