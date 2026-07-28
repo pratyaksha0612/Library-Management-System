@@ -142,8 +142,9 @@
                             <div style="position: relative; width: 100%;">
                                 <img src="<%= book.coverImage || 'https://via.placeholder.com/300x450?text=No+Cover' %>" onerror="this.src='https://via.placeholder.com/300x450?text=No+Cover'" alt="<%= book.title %>" class="img-fluid rounded mb-3 shadow-sm" style="width: 100%; height: auto; aspect-ratio: 2/3; object-fit: cover;">
                             </div>
-                            <h6 class="fw-bold mb-1 text-truncate"><%= book.title %></h6>
-                            <p class="text-muted text-uppercase fw-semibold mb-0" style="font-size: 0.7rem; letter-spacing: 0.5px;"><%= book.author %></p></div></div>
+                            <h6 class="fw-bold mb-1 text-truncate w-100"><%= book.title %></h6>
+                            <p class="text-muted text-uppercase fw-semibold mb-0 text-truncate w-100" style="font-size: 0.7rem; letter-spacing: 0.5px;"><%= book.author %></p>
+                        </div>
                     </div>
                 <% }); %>
             <% } else { %>
