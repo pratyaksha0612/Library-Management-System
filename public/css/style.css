@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap');
 
 /* ==========================================
@@ -5,6 +6,8 @@
    ========================================== */
 
 :root {
+    --welcome-name-color: #000080;
+    --welcome-name-shadow: 0 2px 15px rgba(0, 255, 0, 0.4);
     --font-heading: 'Inter', sans-serif;
     --font-body: 'Plus Jakarta Sans', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
@@ -83,11 +86,7 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-h1, h2, h3, h4, h5, h6, .font-heading {
-    font-family: var(--font-heading);
-    letter-spacing: -0.015em;
-    color: var(--text-primary);
-}
+h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Cinzel', serif !important; font-weight: 700; }
 
 /* ==========================================
    NAVBAR & VECTOR SVG LOGO
@@ -1098,4 +1097,20 @@ code {
 }
 .table tbody tr:hover td {
     background-color: rgba(124, 124, 124, 0.05) !important;
+}
+
+/* Table Fonts & Padding Updates */
+.table {
+    font-family: 'Montserrat', sans-serif !important;
+}
+.table thead th {
+    font-weight: 700 !important;
+    font-size: 0.95rem;
+}
+.table tbody td {
+    font-weight: 400 !important;
+}
+.table-responsive {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
 }
