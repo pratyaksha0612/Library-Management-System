@@ -345,6 +345,11 @@ let books = [
     }
 ];
 
+// Make exactly 2 books out of stock
+books.forEach(b => b.isAvailable = true);
+books[books.length - 1].isAvailable = false;
+books[books.length - 2].isAvailable = false;
+
 // Seed Data - Students (Indian Profiles & User Email)
 let students = [
     { studentId: 1, studentName: 'Rahul Verma', email: 'rahul.v@student.in', phone: '+91 98765 00001', membershipDate: '2023-08-15', borrowCount: 12 },
@@ -554,6 +559,12 @@ app.get(['/Books', '/Books/Index'], (req, res) => {
     let searchQuery = req.query.searchQuery || '';
 
     // Map active borrow records first
+    // Sort books: available first
+    books.sort((a, b) => {
+        if (a.isAvailable === b.isAvailable) return 0;
+        return a.isAvailable ? -1 : 1;
+    });
+
     let filteredBooks = books.map(b => {
         const activeBorrow = borrowRecords.find(br => br.bookId === b.bookId && !br.returnDate);
         return { ...b, activeBorrowRecordId: activeBorrow ? activeBorrow.borrowRecordId : null };
