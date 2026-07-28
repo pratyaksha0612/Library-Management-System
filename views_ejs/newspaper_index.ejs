@@ -1,7 +1,7 @@
 <%- include('header') %>
 
 <% if (flashMessage) { %>
-    <div class="alert alert-custom-blue alert-dismissible fade show border-0 shadow-sm mb-4" role="alert">
+    <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mb-4" role="alert" style="background: var(--bg-card); color: var(--text-primary); border-left: 4px solid var(--btn-primary-bg) !important;">
         <i class="bi bi-info-circle-fill me-2"></i> <%= flashMessage %>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
@@ -22,15 +22,29 @@
     </div>
 </div>
 
-<!-- CATEGORY FILTER TABS -->
-<div class="mb-4">
-    <div class="filter-tab-bar">
-        <button class="filter-tab active" onclick="filterNewspapers('all', this)">All Categories</button>
-        <button class="filter-tab" onclick="filterNewspapers('National', this)">National</button>
-        <button class="filter-tab" onclick="filterNewspapers('General', this)">General News</button>
-        <button class="filter-tab" onclick="filterNewspapers('Business', this)">Business &amp; Economy</button>
-        <button class="filter-tab" onclick="filterNewspapers('Regional', this)">Regional News</button>
-        <button class="filter-tab" onclick="filterNewspapers('Finance', this)">Finance &amp; Markets</button>
+<!-- CATEGORY FILTER TABS & SEARCH BAR -->
+<div class="row g-3 align-items-center mb-4">
+    <div class="col-12 col-md-8">
+        <div class="filter-tab-bar">
+            <button class="filter-tab active" onclick="filterNewspapers('all', this)">All Categories</button>
+            <button class="filter-tab" onclick="filterNewspapers('National', this)">National</button>
+            <button class="filter-tab" onclick="filterNewspapers('General', this)">General News</button>
+            <button class="filter-tab" onclick="filterNewspapers('Business', this)">Business &amp; Economy</button>
+            <button class="filter-tab" onclick="filterNewspapers('Regional', this)">Regional News</button>
+            <button class="filter-tab" onclick="filterNewspapers('Finance', this)">Finance &amp; Markets</button>
+        </div>
+    </div>
+    <div class="col-12 col-md-4">
+        <form method="get" action="/Newspaper/Index" class="d-flex gap-2">
+            <div class="input-group">
+                <span class="input-group-text bg-card border-end-0 text-muted"><i class="bi bi-search"></i></span>
+                <input type="text" name="searchQuery" value="<%= searchQuery %>" class="form-control border-start-0 py-2" placeholder="Search title, publisher, category..." />
+            </div>
+            <button type="submit" class="btn btn-primary-custom">Search</button>
+            <% if (searchQuery) { %>
+                <a href="/Newspaper/Index" class="btn btn-secondary-custom d-flex align-items-center">Clear</a>
+            <% } %>
+        </form>
     </div>
 </div>
 
@@ -49,44 +63,69 @@
             </tr>
         </thead>
         <tbody>
-            <% newspapers.forEach(function(item) { %>
+            <% if (newspapers.length > 0) { %>
+                <% newspapers.forEach(function(item) { %>
+                    <tr>
+                        <td>
+                            <div class="fw-bold"><%= item.title %></div>
+                        </td>
+                        <td>
+                            <span><%= item.publisher %></span>
+                        </td>
+                        <td>
+                            <span class="text-secondary small font-monospace"><%= item.language || 'English' %></span>
+                        </td>
+                        <td>
+                            <span class="text-secondary small"><%= item.category || item.Category || 'General News' %></span>
+                        </td>
+                        <td>
+                            <span class="price-tag">₹<%= item.dailyPrice %>/day</span>
+                        </td>
+                        <td>
+                            <span class="badge bg-secondary bg-opacity-20 text-secondary border border-secondary border-opacity-20 font-monospace" style="font-size: 0.8rem;"><%= item.subscriptionType %></span>
+                        </td>
+                        <td>
+                            <span class="text-muted small"><%= item.publishDate %></span>
+                        </td>
+                        <td class="text-end">
+                            <div class="d-flex justify-content-end gap-1">
+                                <a href="/Newspaper/Edit/<%= item.newspaperId %>" class="btn btn-action-custom btn-blue-edit">
+                                    <i class="bi bi-pencil-fill"></i> Edit
+                                </a>
+                                <a href="/Newspaper/Delete/<%= item.newspaperId %>" class="btn btn-action-custom btn-blue-delete" onclick="return confirm('Are you sure you want to delete this newspaper?')">
+                                    <i class="bi bi-trash-fill"></i> Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
                 <tr>
-                    <td>
-                        <div class="fw-bold"><%= item.title %></div>
-                    </td>
-                    <td>
-                        <span><%= item.publisher %></span>
-                    </td>
-                    <td>
-                        <span class="text-secondary small font-monospace"><%= item.language || 'English' %></span>
-                    </td>
-                    <td>
-                        <span class="text-secondary small"><%= item.category || item.Category || 'General News' %></span>
-                    </td>
-                    <td>
-                        <span class="price-tag">₹<%= item.dailyPrice %>/day</span>
-                    </td>
-                    <td>
-                        <span class="badge bg-secondary bg-opacity-20 text-secondary border border-secondary border-opacity-20 font-monospace" style="font-size: 0.8rem;"><%= item.subscriptionType %></span>
-                    </td>
-                    <td>
-                        <span class="text-muted small"><%= item.publishDate %></span>
-                    </td>
-                    <td class="text-end">
-                        <div class="d-flex justify-content-end gap-1">
-                            <a href="/Newspaper/Edit/<%= item.newspaperId %>" class="btn btn-action-custom btn-blue-edit">
-                                <i class="bi bi-pencil-fill"></i> Edit
-                            </a>
-                            <a href="/Newspaper/Delete/<%= item.newspaperId %>" class="btn btn-action-custom btn-blue-delete" onclick="return confirm('Are you sure you want to delete this newspaper?')">
-                                <i class="bi bi-trash-fill"></i> Delete
-                            </a>
-                        </div>
-                    </td>
+                    <td colspan="8" class="text-center text-muted">No newspaper records found matching the criteria.</td>
                 </tr>
-            <% }); %>
+            <% } %>
         </tbody>
     </table>
 </div>
+
+<!-- Pagination Controls -->
+<% if (totalPages > 1) { %>
+    <nav aria-label="Newspaper navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                <a class="page-link" href="/Newspaper/Index?searchQuery=<%= searchQuery %>&page=<%= currentPage - 1 %>">Previous</a>
+            </li>
+            <% for (let i = 1; i <= totalPages; i++) { %>
+                <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                    <a class="page-link" href="/Newspaper/Index?searchQuery=<%= searchQuery %>&page=<%= i %>"><%= i %></a>
+                </li>
+            <% } %>
+            <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                <a class="page-link" href="/Newspaper/Index?searchQuery=<%= searchQuery %>&page=<%= currentPage + 1 %>">Next</a>
+            </li>
+        </ul>
+    </nav>
+<% } %>
 
 <script>
     function filterNewspapers(category, btn) {

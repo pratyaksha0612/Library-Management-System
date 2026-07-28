@@ -15,6 +15,24 @@
     </div>
 </div>
 
+<!-- Search Interface Block -->
+<div class="row g-3 align-items-center mb-4">
+    <div class="col-12 col-md-8">
+    </div>
+    <div class="col-12 col-md-4">
+        <form method="get" action="/Student/Index" class="d-flex gap-2">
+            <div class="input-group">
+                <span class="input-group-text bg-card border-end-0 text-muted"><i class="bi bi-search"></i></span>
+                <input type="text" name="searchTerm" value="<%= searchTerm %>" class="form-control border-start-0 py-2" placeholder="Search by name, email, phone..." />
+            </div>
+            <button type="submit" class="btn btn-primary-custom">Search</button>
+            <% if (searchTerm) { %>
+                <a href="/Student/Index" class="btn btn-secondary-custom d-flex align-items-center">Clear</a>
+            <% } %>
+        </form>
+    </div>
+</div>
+
 <div class="custom-table-container">
     <table class="custom-table" id="studentsTable">
         <thead>
@@ -27,34 +45,59 @@
             </tr>
         </thead>
         <tbody>
-            <% students.forEach(function(item) { %>
+            <% if (students.length > 0) { %>
+                <% students.forEach(function(item) { %>
+                    <tr>
+                        <td>
+                            <span class="font-monospace fw-bold text-primary">#<%= item.studentId %></span>
+                        </td>
+                        <td>
+                            <div class="fw-bold"><%= item.studentName %></div>
+                        </td>
+                        <td>
+                            <span><%= item.email %></span>
+                        </td>
+                        <td>
+                            <code class="px-2.5 py-1 rounded font-monospace text-nowrap"><%= item.phone %></code>
+                        </td>
+                        <td class="text-end">
+                            <div class="d-flex justify-content-end gap-1">
+                                <a href="/Student/Edit/<%= item.studentId %>" class="btn btn-action-custom btn-blue-edit">
+                                    <i class="bi bi-pencil-fill"></i> Edit
+                                </a>
+                                <a href="/Student/Delete/<%= item.studentId %>" class="btn btn-action-custom btn-blue-delete" onclick="return confirm('Are you sure you want to delete this student?')">
+                                    <i class="bi bi-trash-fill"></i> Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
                 <tr>
-                    <td>
-                        <span class="font-monospace fw-bold text-primary">#<%= item.studentId %></span>
-                    </td>
-                    <td>
-                        <div class="fw-bold"><%= item.studentName %></div>
-                    </td>
-                    <td>
-                        <span><%= item.email %></span>
-                    </td>
-                    <td>
-                        <code class="px-2.5 py-1 rounded font-monospace text-nowrap"><%= item.phone %></code>
-                    </td>
-                    <td class="text-end">
-                        <div class="d-flex justify-content-end gap-1">
-                            <a href="/Student/Edit/<%= item.studentId %>" class="btn btn-action-custom btn-blue-edit">
-                                <i class="bi bi-pencil-fill"></i> Edit
-                            </a>
-                            <a href="/Student/Delete/<%= item.studentId %>" class="btn btn-action-custom btn-blue-delete" onclick="return confirm('Are you sure you want to delete this student?')">
-                                <i class="bi bi-trash-fill"></i> Delete
-                            </a>
-                        </div>
-                    </td>
+                    <td colspan="5" class="text-center text-muted">No student records found matching the criteria.</td>
                 </tr>
-            <% }); %>
+            <% } %>
         </tbody>
     </table>
 </div>
+
+<!-- Pagination Controls -->
+<% if (totalPages > 1) { %>
+    <nav aria-label="Student navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                <a class="page-link" href="/Student/Index?searchTerm=<%= searchTerm %>&page=<%= currentPage - 1 %>">Previous</a>
+            </li>
+            <% for (let i = 1; i <= totalPages; i++) { %>
+                <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                    <a class="page-link" href="/Student/Index?searchTerm=<%= searchTerm %>&page=<%= i %>"><%= i %></a>
+                </li>
+            <% } %>
+            <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                <a class="page-link" href="/Student/Index?searchTerm=<%= searchTerm %>&page=<%= currentPage + 1 %>">Next</a>
+            </li>
+        </ul>
+    </nav>
+<% } %>
 
 <%- include('footer') %>

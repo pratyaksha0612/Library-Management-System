@@ -15,6 +15,24 @@
     </div>
 </div>
 
+<!-- Search Interface Block -->
+<div class="row g-3 align-items-center mb-4">
+    <div class="col-12 col-md-8">
+    </div>
+    <div class="col-12 col-md-4">
+        <form method="get" action="/Librarian/Index" class="d-flex gap-2">
+            <div class="input-group">
+                <span class="input-group-text bg-card border-end-0 text-muted"><i class="bi bi-search"></i></span>
+                <input type="text" name="searchTerm" value="<%= searchTerm %>" class="form-control border-start-0 py-2" placeholder="Search by name..." />
+            </div>
+            <button type="submit" class="btn btn-primary-custom">Search</button>
+            <% if (searchTerm) { %>
+                <a href="/Librarian/Index" class="btn btn-secondary-custom d-flex align-items-center">Clear</a>
+            <% } %>
+        </form>
+    </div>
+</div>
+
 <div class="custom-table-container">
     <table class="custom-table" id="librariansTable">
         <thead>
@@ -27,34 +45,59 @@
             </tr>
         </thead>
         <tbody>
-            <% librarians.forEach(function(item) { %>
+            <% if (librarians.length > 0) { %>
+                <% librarians.forEach(function(item) { %>
+                    <tr>
+                        <td>
+                            <span class="font-monospace fw-bold">#<%= item.librarianId %></span>
+                        </td>
+                        <td>
+                            <div class="fw-bold"><%= item.name %></div>
+                        </td>
+                        <td>
+                            <span class="text-secondary small font-monospace"><%= item.age %> yrs</span>
+                        </td>
+                        <td>
+                            <code class="px-2.5 py-1 rounded font-monospace text-nowrap"><%= item.phone %></code>
+                        </td>
+                        <td class="text-end">
+                            <div class="btn-group btn-group-sm gap-1">
+                                <a href="/Librarian/Edit/<%= item.librarianId %>" class="btn btn-sm btn-blue-edit">
+                                    <i class="bi bi-pencil-fill"></i> Edit
+                                </a>
+                                <a href="/Librarian/Delete/<%= item.librarianId %>" class="btn btn-sm btn-blue-delete" onclick="return confirm('Are you sure you want to delete this librarian?')">
+                                    <i class="bi bi-trash-fill"></i> Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
                 <tr>
-                    <td>
-                        <span class="font-monospace fw-bold">#<%= item.librarianId %></span>
-                    </td>
-                    <td>
-                        <div class="fw-bold"><%= item.name %></div>
-                    </td>
-                    <td>
-                        <span class="text-secondary small font-monospace"><%= item.age %> yrs</span>
-                    </td>
-                    <td>
-                        <code class="px-2.5 py-1 rounded font-monospace text-nowrap"><%= item.phone %></code>
-                    </td>
-                    <td class="text-end">
-                        <div class="btn-group btn-group-sm gap-1">
-                            <a href="/Librarian/Edit/<%= item.librarianId %>" class="btn btn-sm btn-blue-edit">
-                                <i class="bi bi-pencil-fill"></i> Edit
-                            </a>
-                            <a href="/Librarian/Delete/<%= item.librarianId %>" class="btn btn-sm btn-blue-delete" onclick="return confirm('Are you sure you want to delete this librarian?')">
-                                <i class="bi bi-trash-fill"></i> Delete
-                            </a>
-                        </div>
-                    </td>
+                    <td colspan="5" class="text-center text-muted">No librarian records found matching the criteria.</td>
                 </tr>
-            <% }); %>
+            <% } %>
         </tbody>
     </table>
 </div>
+
+<!-- Pagination Controls -->
+<% if (totalPages > 1) { %>
+    <nav aria-label="Librarian navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                <a class="page-link" href="/Librarian/Index?searchTerm=<%= searchTerm %>&page=<%= currentPage - 1 %>">Previous</a>
+            </li>
+            <% for (let i = 1; i <= totalPages; i++) { %>
+                <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                    <a class="page-link" href="/Librarian/Index?searchTerm=<%= searchTerm %>&page=<%= i %>"><%= i %></a>
+                </li>
+            <% } %>
+            <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                <a class="page-link" href="/Librarian/Index?searchTerm=<%= searchTerm %>&page=<%= currentPage + 1 %>">Next</a>
+            </li>
+        </ul>
+    </nav>
+<% } %>
 
 <%- include('footer') %>

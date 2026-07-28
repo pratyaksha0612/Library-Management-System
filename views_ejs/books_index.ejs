@@ -1,7 +1,7 @@
 <%- include('header') %>
 
 <% if (flashMessage) { %>
-    <div class="alert alert-custom-blue alert-dismissible fade show border-0 shadow-sm mb-4" role="alert">
+    <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mb-4" role="alert" style="background: var(--bg-card); color: var(--text-primary); border-left: 4px solid var(--btn-primary-bg) !important;">
         <i class="bi bi-info-circle-fill me-2"></i> <%= flashMessage %>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
@@ -11,8 +11,8 @@
     <!-- Header Title & Quick Actions -->
     <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between pb-3 mb-4 border-bottom">
         <div>
-            <h2 class="fw-bold mb-1 font-heading">Books Showcase Directory</h2>
-            <p class="text-muted small mb-0">Browse interactive book collection in ₹ (INR). Hover on any book for quick actions or click for full details.</p>
+            <h2 class="fw-bold mb-1 font-special">Books Showcase Directory</h2>
+            <p class="text-muted small mb-0">Browse interactive book collection in ₹ (INR). Clean full-bleed covers with instant quick actions.</p>
         </div>
         <div class="mt-3 mt-md-0 d-flex align-items-center gap-2 flex-wrap">
             <button type="button" class="btn btn-sm btn-secondary-custom" data-bs-toggle="modal" data-bs-target="#fineCalculatorModal">
@@ -39,10 +39,16 @@
             </div>
         </div>
         <div class="col-12 col-md-5">
-            <div class="input-group">
-                <span class="input-group-text bg-card border-end-0 text-muted"><i class="bi bi-search"></i></span>
-                <input type="text" id="bookSearchInput" class="form-control border-start-0 py-2" placeholder="Search book title, author, or ISBN..." onkeyup="searchBooksGrid()" />
-            </div>
+            <form method="get" action="/Books/Index" class="d-flex gap-2">
+                <div class="input-group">
+                    <span class="input-group-text bg-card border-end-0 text-muted"><i class="bi bi-search"></i></span>
+                    <input type="text" name="searchQuery" value="<%= searchQuery %>" class="form-control border-start-0 py-2" placeholder="Search book title, author, or ISBN..." />
+                </div>
+                <button type="submit" class="btn btn-primary-custom">Search</button>
+                <% if (searchQuery) { %>
+                    <a href="/Books/Index" class="btn btn-secondary-custom d-flex align-items-center">Clear</a>
+                <% } %>
+            </form>
         </div>
     </div>
 
@@ -57,36 +63,11 @@
                  data-available="<%= book.isAvailable %>">
                  
                 <div class="book-card-vertical">
-                    <!-- 100% VISIBLE COVER FRAME -->
+                    <!-- FULL-BLEED COVER FRAME -->
                     <div class="book-cover-frame">
                         <img src="<%= book.coverImage || 'https://covers.openlibrary.org/b/isbn/' + book.isbn.replace(/-/g,'') + '-M.jpg' %>" 
                              alt="<%= book.title %> Cover" 
-                             onerror="this.src='https://via.placeholder.com/300x400/7c3aed/ffffff?text=Book+Cover'" />
-                        
-                        <!-- HOVER OVERLAY WITH OPTIONS -->
-                        <div class="book-hover-overlay-full">
-                            <button type="button" class="btn btn-hover-action btn-blue-details" onclick="openBookModal(<%= JSON.stringify(book) %>)">
-                                <i class="bi bi-eye-fill"></i> View Details
-                            </button>
-                            
-                            <a href="/Books/Edit/<%= book.bookId %>" class="btn btn-hover-action btn-blue-edit">
-                                <i class="bi bi-pencil-fill"></i> Edit Book
-                            </a>
-                            
-                            <% if (book.isAvailable) { %>
-                                <a href="/Borrow/Create?bookId=<%= book.bookId %>" class="btn btn-hover-action btn-blue-borrow">
-                                    <i class="bi bi-box-arrow-up-right me-1"></i> Borrow Book
-                                </a>
-                            <% } else if (book.activeBorrowRecordId) { %>
-                                <a href="/Borrow/Return?borrowRecordId=<%= book.activeBorrowRecordId %>" class="btn btn-hover-action btn-blue-return">
-                                    <i class="bi bi-arrow-counterclockwise me-1"></i> Return Book
-                                </a>
-                            <% } %>
-
-                            <a href="/Books/Delete/<%= book.bookId %>" class="btn btn-hover-action btn-blue-delete">
-                                <i class="bi bi-trash-fill"></i> Delete Book
-                            </a>
-                        </div>
+                             onerror="this.src='https://via.placeholder.com/300x400/2E6F57/ffffff?text=Book+Cover'" />
                     </div>
 
                     <!-- CARD CONTENT DETAILS -->
@@ -95,21 +76,53 @@
                             <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
                                 <h5 class="book-title-heading" onclick="openBookModal(<%= JSON.stringify(book) %>)"><%= book.title %></h5>
                                 <% if (book.isAvailable) { %>
-                                    <span class="badge-custom badge-available">
+                                    <span class="badge-custom badge-available px-2 py-0.5" style="font-size: 0.7rem;">
                                         <i class="bi bi-check-circle-fill"></i> Available
                                     </span>
                                 <% } else { %>
-                                    <span class="badge-custom badge-borrowed">
+                                    <span class="badge-custom badge-borrowed px-2 py-0.5" style="font-size: 0.7rem;">
                                         <i class="bi bi-bookmark-fill"></i> Borrowed
                                     </span>
                                 <% } %>
                             </div>
-                            <div class="book-author-sub">by <%= book.author %></div>
+                            <div class="book-author-sub mb-2">by <%= book.author %></div>
+                            
+                            <!-- Little bit of context -->
+                            <p class="text-secondary small mb-3 text-truncate-2" style="font-size: 0.82rem; min-height: 38px; line-height: 1.4;">
+                                <%= book.description || 'No additional description details available for this library catalog item.' %>
+                            </p>
                         </div>
 
-                        <div class="d-flex align-items-center justify-content-between pt-2 border-top">
-                            <code class="text-muted"><%= book.isbn %></code>
-                            <span class="price-tag">₹<%= book.price %></span>
+                        <div>
+                            <div class="d-flex align-items-center justify-content-between pt-2 border-top">
+                                <code class="text-muted" style="font-size: 0.75rem;"><%= book.isbn %></code>
+                                <span class="price-tag" style="font-size: 0.95rem;">₹<%= book.price %></span>
+                            </div>
+
+                            <!-- Non-bulky subtle buttons -->
+                            <div class="mt-3 d-flex gap-2 justify-content-between align-items-center flex-wrap">
+                                <div class="d-flex gap-1">
+                                    <button type="button" class="btn btn-action-subtle btn-subtle-view" onclick="openBookModal(<%= JSON.stringify(book) %>)" title="View Details">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <a href="/Books/Edit/<%= book.bookId %>" class="btn btn-action-subtle btn-subtle-edit" title="Edit Book">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a href="/Books/Delete/<%= book.bookId %>" class="btn btn-action-subtle btn-subtle-delete" title="Delete Book">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                                
+                                <% if (book.isAvailable) { %>
+                                    <a href="/Borrow/Create?bookId=<%= book.bookId %>" class="btn btn-action-subtle btn-subtle-borrow">
+                                        <i class="bi bi-box-arrow-up-right me-1"></i> Borrow
+                                    </a>
+                                <% } else if (book.activeBorrowRecordId) { %>
+                                    <a href="/Borrow/Return?borrowRecordId=<%= book.activeBorrowRecordId %>" class="btn btn-action-subtle btn-subtle-return">
+                                        <i class="bi bi-arrow-counterclockwise me-1"></i> Return
+                                    </a>
+                                <% } %>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -117,6 +130,25 @@
             </div>
         <% }); %>
     </div>
+
+    <!-- Pagination Controls -->
+    <% if (totalPages > 1) { %>
+        <nav aria-label="Books navigation" class="mt-4">
+            <ul class="pagination justify-content-center">
+                <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                    <a class="page-link" href="/Books/Index?searchQuery=<%= searchQuery %>&page=<%= currentPage - 1 %>">Previous</a>
+                </li>
+                <% for (let i = 1; i <= totalPages; i++) { %>
+                    <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                        <a class="page-link" href="/Books/Index?searchQuery=<%= searchQuery %>&page=<%= i %>"><%= i %></a>
+                    </li>
+                <% } %>
+                <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                    <a class="page-link" href="/Books/Index?searchQuery=<%= searchQuery %>&page=<%= currentPage + 1 %>">Next</a>
+                </li>
+            </ul>
+        </nav>
+    <% } %>
 </div>
 
 <!-- CLICKABLE BOOK DETAILS MODAL -->

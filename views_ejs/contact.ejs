@@ -1,7 +1,7 @@
 <%- include('header') %>
 
 <% if (flashMessage) { %>
-    <div class="alert alert-custom-blue alert-dismissible fade show border-0 shadow-sm mb-4" role="alert">
+    <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mb-4" role="alert" style="background: var(--bg-card); color: var(--text-primary); border-left: 4px solid var(--btn-primary-bg) !important;">
         <i class="bi bi-info-circle-fill me-2"></i> <%= flashMessage %>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>

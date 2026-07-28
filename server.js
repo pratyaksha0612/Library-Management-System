@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
+const crypto = require('crypto');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -30,54 +31,60 @@ let logintab = [
 
 // Seed Data - Books with Indian Literature & Global Classics in ₹ (INR)
 let books = [
-    { bookId: 1, title: "Panchatantra Tales", author: "Vishnu Sharma", isbn: "978-8129104427", publishedDate: "2020-05-10", price: 299, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9788129104427-M.jpg" },
-    { bookId: 2, title: "Malgudi Days", author: "R. K. Narayan", isbn: "978-0140187809", publishedDate: "2019-11-15", price: 350, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9780140187809-M.jpg" },
-    { bookId: 3, title: "Wings of Fire", author: "A. P. J. Abdul Kalam", isbn: "978-8173711466", publishedDate: "2021-01-26", price: 399, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9788173711466-M.jpg" },
-    { bookId: 4, title: "The White Tiger", author: "Aravind Adiga", isbn: "978-1416562604", publishedDate: "2022-03-14", price: 499, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9781416562604-M.jpg" },
-    { bookId: 5, title: "The Guide", author: "R. K. Narayan", isbn: "978-0143414988", publishedDate: "2018-08-20", price: 320, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9780143414988-M.jpg" },
-    { bookId: 6, title: "Train to Pakistan", author: "Khushwant Singh", isbn: "978-0143065883", publishedDate: "2020-08-15", price: 280, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9780143065883-M.jpg" },
-    { bookId: 7, title: "The God of Small Things", author: "Arundhati Roy", isbn: "978-0143028574", publishedDate: "2021-09-05", price: 450, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9780143028574-M.jpg" },
-    { bookId: 8, title: "The Pragmatic Programmer", author: "Andrew Hunt & David Thomas", isbn: "978-0201616224", publishedDate: "2021-10-30", price: 850, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9780201616224-M.jpg" },
-    { bookId: 9, title: "Clean Code: Architecture", author: "Robert C. Martin", isbn: "978-0132350884", publishedDate: "2023-08-01", price: 920, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9780132350884-M.jpg" }
+    { bookId: 1, title: "Harry Potter and the Philosopher's Stone", author: "J.K. Rowling", genre: "Fantasy", isbn: "978-0747532699", publishedDate: "1997-06-26", price: 499, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9780747532699-M.jpg", description: "The first novel in the Harry Potter series." },
+    { bookId: 2, title: "Harry Potter and the Chamber of Secrets", author: "J.K. Rowling", genre: "Fantasy", isbn: "978-0747538493", publishedDate: "1998-07-02", price: 499, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9780747538493-M.jpg", description: "The second novel in the Harry Potter series." },
+    { bookId: 3, title: "The Hobbit", author: "J.R.R. Tolkien", genre: "Fantasy", isbn: "978-0261102217", publishedDate: "1937-09-21", price: 399, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9780261102217-M.jpg", description: "A fantasy novel and children's book." },
+    { bookId: 4, title: "The Alchemist", author: "Paulo Coelho", genre: "Fiction", isbn: "978-0062315007", publishedDate: "1988-04-15", price: 299, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9780062315007-M.jpg", description: "A novel about a young Andalusian shepherd." },
+    { bookId: 5, title: "1984", author: "George Orwell", genre: "Science Fiction", isbn: "978-0451524935", publishedDate: "1949-06-08", price: 350, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9780451524935-M.jpg", description: "A dystopian social science fiction novel." },
+    { bookId: 6, title: "The Kite Runner", author: "Khaled Hosseini", genre: "Historical Fiction", isbn: "978-1594631931", publishedDate: "2003-05-29", price: 450, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9781594631931-M.jpg", description: "A novel about the unlikely friendship between a wealthy boy and the son of his father's servant." },
+    { bookId: 7, title: "Wings of Fire", author: "A.P.J. Abdul Kalam", genre: "Autobiography", isbn: "978-8173711466", publishedDate: "1999-01-01", price: 399, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9788173711466-M.jpg", description: "An autobiography of A.P.J. Abdul Kalam." },
+    { bookId: 8, title: "Panchatantra", author: "Vishnu Sharma", genre: "Fable", isbn: "978-8171670642", publishedDate: "1990-01-01", price: 150, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9788171670642-M.jpg", description: "An ancient Indian collection of interrelated animal fables." },
+    { bookId: 9, title: "Sapiens", author: "Yuval Noah Harari", genre: "Non-fiction", isbn: "978-0062316097", publishedDate: "2011-01-01", price: 599, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9780062316097-M.jpg", description: "A brief history of humankind." },
+    { bookId: 10, title: "Atomic Habits", author: "James Clear", genre: "Self-help", isbn: "978-0735211292", publishedDate: "2018-10-16", price: 499, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9780735211292-M.jpg", description: "An easy & proven way to build good habits & break bad ones." },
+    { bookId: 11, title: "Ikigai", author: "Hector Garcia", genre: "Philosophy", isbn: "978-0143130727", publishedDate: "2017-08-29", price: 399, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9780143130727-M.jpg", description: "The Japanese secret to a long and happy life." },
+    { bookId: 12, title: "The Psychology of Money", author: "Morgan Housel", genre: "Finance", isbn: "978-0857197689", publishedDate: "2020-09-08", price: 399, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9780857197689-M.jpg", description: "Timeless lessons on wealth, greed, and happiness." },
+    { bookId: 13, title: "Rich Dad Poor Dad", author: "Robert T. Kiyosaki", genre: "Finance", isbn: "978-1612680194", publishedDate: "1997-04-01", price: 350, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9781612680194-M.jpg", description: "What the rich teach their kids about money." },
+    { bookId: 14, title: "A Brief History of Time", author: "Stephen Hawking", genre: "Science", isbn: "978-0553380163", publishedDate: "1988-03-01", price: 450, isAvailable: true, coverImage: "https://covers.openlibrary.org/b/isbn/9780553380163-M.jpg", description: "From the Big Bang to Black Holes." }
 ];
 
 // Seed Data - Students (Indian Profiles & User Email)
 let students = [
-    { studentId: 1, studentName: "Pratyaksha Singh", email: "ipratyaksha.works@gmail.com", phone: "+91 98765 43210" },
-    { studentId: 2, studentName: "Aarav Sharma", email: "aarav.sharma@email.in", phone: "+91 98123 45678" },
-    { studentId: 3, studentName: "Ananya Verma", email: "ananya.v@email.in", phone: "+91 98987 65432" },
-    { studentId: 4, studentName: "Rohan Gupta", email: "rohan.g@email.in", phone: "+91 97111 22334" },
-    { studentId: 5, studentName: "Priya Nair", email: "priya.nair@email.in", phone: "+91 96500 88776" },
-    { studentId: 6, studentName: "Kabir Mehta", email: "kabir.m@email.in", phone: "+91 98450 11223" }
+    { studentId: 1, studentName: "Arjun Reddy", email: "arjun.r@student.in", phone: "+91 98765 00001", membershipDate: "2023-08-15", borrowCount: 12 },
+    { studentId: 2, studentName: "Priya Sharma", email: "priya.sharma@student.in", phone: "+91 98765 00002", membershipDate: "2024-01-10", borrowCount: 5 },
+    { studentId: 3, studentName: "Rahul Verma", email: "rahul.v@student.in", phone: "+91 98765 00003", membershipDate: "2023-11-20", borrowCount: 8 },
+    { studentId: 4, studentName: "Sneha Patel", email: "sneha.p@student.in", phone: "+91 98765 00004", membershipDate: "2024-03-05", borrowCount: 3 },
+    { studentId: 5, studentName: "Vikram Singh", email: "vikram.s@student.in", phone: "+91 98765 00005", membershipDate: "2022-09-12", borrowCount: 25 },
+    { studentId: 6, studentName: "Ananya Desai", email: "ananya.d@student.in", phone: "+91 98765 00006", membershipDate: "2024-05-18", borrowCount: 1 }
 ];
 
 // Seed Data - Librarians (Indian Profiles)
 let librarians = [
-    { librarianId: 1, name: "Rajesh Kumar", age: 38, phone: "+91 99100 12345" },
-    { librarianId: 2, name: "Meenakshi Sundaram", age: 32, phone: "+91 98200 54321" },
-    { librarianId: 3, name: "Sunita Patel", age: 44, phone: "+91 97300 67890" },
-    { librarianId: 4, name: "Michael Scott", age: 45, phone: "+91 99888 77665" }
+    { librarianId: 1, name: "Dr. Rajesh Kumar", age: 45, phone: "+91 99000 11111", employeeId: "LIB-001", department: "Head Librarian", experience: "15 Years", shift: "Morning" },
+    { librarianId: 2, name: "Meenakshi Iyer", age: 38, phone: "+91 99000 22222", employeeId: "LIB-002", department: "Reference", experience: "10 Years", shift: "Morning" },
+    { librarianId: 3, name: "Suresh Menon", age: 42, phone: "+91 99000 33333", employeeId: "LIB-003", department: "Digital Archives", experience: "8 Years", shift: "Evening" },
+    { librarianId: 4, name: "Kavita Nair", age: 34, phone: "+91 99000 44444", employeeId: "LIB-004", department: "Circulation", experience: "5 Years", shift: "Evening" }
 ];
 
 // Seed Data - Newspapers (Price in ₹ INR)
 let newspapers = [
-    { newspaperId: 1, title: "The Hindu", publisher: "Kasturi & Sons", language: "English", category: "National Daily", dailyPrice: 7, subscriptionType: "Daily Edition", publishDate: "2026-07-25", isAvailable: true },
-    { newspaperId: 2, title: "Dainik Jagran", publisher: "Jagran Prakashan", language: "Hindi", category: "General News", dailyPrice: 5, subscriptionType: "Daily Edition", publishDate: "2026-07-25", isAvailable: true },
-    { newspaperId: 3, title: "The Times of India", publisher: "Bennett, Coleman & Co.", language: "English", category: "General News", dailyPrice: 6, subscriptionType: "Daily Edition", publishDate: "2026-07-25", isAvailable: true },
-    { newspaperId: 4, title: "Mint", publisher: "HT Media", language: "English", category: "Business & Economy", dailyPrice: 10, subscriptionType: "Weekday Edition", publishDate: "2026-07-25", isAvailable: true },
-    { newspaperId: 5, title: "Financial Express", publisher: "Indian Express Group", language: "English", category: "Finance & Markets", dailyPrice: 7, subscriptionType: "Daily Edition", publishDate: "2026-07-25", isAvailable: true },
-    { newspaperId: 6, title: "Eenadu", publisher: "Ramoji Group", language: "Telugu", category: "Regional News", dailyPrice: 5, subscriptionType: "Daily Edition", publishDate: "2026-07-25", isAvailable: true },
-    { newspaperId: 7, title: "Dina Thanthi", publisher: "Daily Thanthi Group", language: "Tamil", category: "Regional News", dailyPrice: 5, subscriptionType: "Daily Edition", publishDate: "2026-07-25", isAvailable: true }
+    { newspaperId: 1, title: "The Hindu", publisher: "Kasturi & Sons", language: "English", category: "National Daily", dailyPrice: 8, subscriptionType: "Daily", publishDate: "2026-07-28", isAvailable: true },
+    { newspaperId: 2, title: "The Indian Express", publisher: "Indian Express Group", language: "English", category: "National Daily", dailyPrice: 7, subscriptionType: "Daily", publishDate: "2026-07-28", isAvailable: true },
+    { newspaperId: 3, title: "The Times of India", publisher: "Bennett, Coleman & Co.", language: "English", category: "National Daily", dailyPrice: 6, subscriptionType: "Daily", publishDate: "2026-07-28", isAvailable: true },
+    { newspaperId: 4, title: "Hindustan Times", publisher: "HT Media", language: "English", category: "National Daily", dailyPrice: 7, subscriptionType: "Daily", publishDate: "2026-07-28", isAvailable: true },
+    { newspaperId: 5, title: "Business Standard", publisher: "Business Standard Private Limited", language: "English", category: "Business", dailyPrice: 10, subscriptionType: "Daily", publishDate: "2026-07-28", isAvailable: true },
+    { newspaperId: 6, title: "Mint", publisher: "HT Media", language: "English", category: "Business", dailyPrice: 10, subscriptionType: "Daily", publishDate: "2026-07-28", isAvailable: true },
+    { newspaperId: 7, title: "Dainik Jagran", publisher: "Jagran Prakashan", language: "Hindi", category: "National Daily", dailyPrice: 5, subscriptionType: "Daily", publishDate: "2026-07-28", isAvailable: true },
+    { newspaperId: 8, title: "Amar Ujala", publisher: "Amar Ujala Publications", language: "Hindi", category: "National Daily", dailyPrice: 5, subscriptionType: "Daily", publishDate: "2026-07-28", isAvailable: true }
 ];
 
 // Seed Data - Magazines (Price in ₹ INR)
 let magazines = [
-    { magazineId: 1, title: "India Today", publisher: "Living Media", issueNumber: "Vol. 49 Issue 30", genre: "Current Affairs", price: 75, frequency: "Weekly", publishDate: "2026-07-20", isAvailable: true },
-    { magazineId: 2, title: "Outlook", publisher: "Outlook Publishing", issueNumber: "Vol. 28 Issue 14", genre: "News & Analysis", price: 60, frequency: "Bi-Weekly", publishDate: "2026-07-15", isAvailable: true },
-    { magazineId: 3, title: "Frontline", publisher: "Kasturi & Sons", issueNumber: "Vol. 43 Issue 12", genre: "Politics & Culture", price: 80, frequency: "Fortnightly", publishDate: "2026-07-10", isAvailable: true },
-    { magazineId: 4, title: "Forbes India", publisher: "Network18", issueNumber: "Vol. 18 Issue 07", genre: "Business & Wealth", price: 200, frequency: "Monthly", publishDate: "2026-07-01", isAvailable: true },
-    { magazineId: 5, title: "National Geographic India", publisher: "ACK Media", issueNumber: "Vol. 15 Issue 07", genre: "Science & Nature", price: 180, frequency: "Monthly", publishDate: "2026-07-01", isAvailable: true },
-    { magazineId: 6, title: "Business Today", publisher: "Living Media", issueNumber: "Vol. 35 Issue 15", genre: "Markets & Corporate", price: 150, frequency: "Fortnightly", publishDate: "2026-07-12", isAvailable: true }
+    { magazineId: 1, title: "India Today", publisher: "Living Media", issueNumber: "August 2026", genre: "News", price: 100, frequency: "Weekly", publishDate: "2026-07-25", isAvailable: true },
+    { magazineId: 2, title: "National Geographic", publisher: "National Geographic Partners", issueNumber: "August 2026", genre: "Science & Nature", price: 250, frequency: "Monthly", publishDate: "2026-07-15", isAvailable: true },
+    { magazineId: 3, title: "Scientific American", publisher: "Springer Nature", issueNumber: "August 2026", genre: "Science", price: 300, frequency: "Monthly", publishDate: "2026-07-20", isAvailable: true },
+    { magazineId: 4, title: "Forbes India", publisher: "Network18", issueNumber: "August 2026", genre: "Business", price: 200, frequency: "Fortnightly", publishDate: "2026-07-22", isAvailable: true },
+    { magazineId: 5, title: "Frontline", publisher: "The Hindu Group", issueNumber: "August 2026", genre: "Current Affairs", price: 120, frequency: "Fortnightly", publishDate: "2026-07-24", isAvailable: true },
+    { magazineId: 6, title: "Outlook", publisher: "Outlook Publishing", issueNumber: "August 2026", genre: "News", price: 90, frequency: "Weekly", publishDate: "2026-07-26", isAvailable: true }
 ];
 
 let borrowRecords = [
@@ -122,12 +129,13 @@ app.get(['/Login', '/Login/Index'], (req, res) => {
     if (req.session.isLoggedIn) {
         return res.redirect('/Dashboard');
     }
-    res.render('login', { message: res.locals.errorMessage });
+    res.render('login', { message: res.locals.errorMessage, successMessage: res.locals.flashMessage });
 });
 
 app.post('/Login/Verify', (req, res) => {
     const { username, password } = req.body;
-    const user = logintab.find(u => u.username === username && u.password === password);
+    const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
+    const user = logintab.find(u => u.username === username && (u.password === password || u.password === hashedPassword));
     if (user) {
         req.session.isLoggedIn = true;
         req.session.user = user;
@@ -136,6 +144,44 @@ app.post('/Login/Verify', (req, res) => {
     } else {
         res.render('login', { message: "Invalid username or password. Please try again." });
     }
+});
+
+// REGISTRATION MODULE (UNPROTECTED)
+app.get(['/register', '/Register'], (req, res) => {
+    if (req.session.isLoggedIn) {
+        return res.redirect('/Dashboard');
+    }
+    res.render('register', { message: res.locals.errorMessage });
+});
+
+app.post('/register', (req, res) => {
+    const { fullName, email, username, password, confirmPassword } = req.body;
+    
+    if (password !== confirmPassword) {
+        return res.render('register', { message: "Passwords do not match." });
+    }
+    
+    const userExists = logintab.find(u => u.username === username || u.email === email);
+    if (userExists) {
+        return res.render('register', { message: "Username or email already in use." });
+    }
+
+    const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
+
+    const newId = logintab.length > 0 ? Math.max(...logintab.map(u => u.id)) + 1 : 1;
+    const newUser = {
+        id: newId,
+        username,
+        password: hashedPassword,
+        role: "Student User", // Default role
+        name: fullName,
+        email
+    };
+    logintab.push(newUser);
+
+    // Option 1: Redirect to Login with a success toast
+    flashMessage = "Account created successfully. Please sign in.";
+    res.redirect('/Login');
 });
 
 // LOGOUT ROUTE
@@ -157,6 +203,7 @@ app.get(['/Dashboard', '/Dashboard/Index'], (req, res) => {
         totalBorrowings: borrowRecords.filter(b => !b.returnDate).length,
         totalNewspapers: newspapers.length,
         totalMagazines: magazines.length,
+        totalPublications: newspapers.length + magazines.length,
         monthlyTrends: {
             labels: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
             borrowed: [32, 45, 38, 52, 60, borrowRecords.length + 42],
@@ -172,11 +219,41 @@ app.get(['/Dashboard', '/Dashboard/Index'], (req, res) => {
 
 // BOOKS MODULE
 app.get(['/Books', '/Books/Index'], (req, res) => {
-    const booksList = books.map(b => {
+    let searchQuery = req.query.searchQuery || '';
+    let page = parseInt(req.query.page) || 1;
+    const pageSize = 5;
+
+    // Map active borrow records first
+    let filteredBooks = books.map(b => {
         const activeBorrow = borrowRecords.find(br => br.bookId === b.bookId && !br.returnDate);
         return { ...b, activeBorrowRecordId: activeBorrow ? activeBorrow.borrowRecordId : null };
     });
-    res.render('books_index', { books: booksList });
+
+    // Apply search filter if searchQuery exists
+    if (searchQuery.trim()) {
+        const query = searchQuery.trim().toLowerCase();
+        filteredBooks = filteredBooks.filter(b => 
+            (b.title && b.title.toLowerCase().includes(query)) ||
+            (b.author && b.author.toLowerCase().includes(query)) ||
+            (b.isbn && b.isbn.toLowerCase().includes(query))
+        );
+    }
+
+    // Pagination calculations
+    const totalItems = filteredBooks.length;
+    const totalPages = Math.ceil(totalItems / pageSize);
+    if (page < 1) page = 1;
+    if (page > totalPages && totalPages > 0) page = totalPages;
+
+    const offset = (page - 1) * pageSize;
+    const paginatedBooks = filteredBooks.slice(offset, offset + pageSize);
+
+    res.render('books_index', { 
+        books: paginatedBooks, 
+        searchQuery: searchQuery,
+        currentPage: page,
+        totalPages: totalPages
+    });
 });
 
 app.get(['/Books/Details', '/Books/Details/:id'], (req, res) => {
@@ -249,7 +326,38 @@ app.post(['/Books/Delete', '/Books/Delete/:id'], (req, res) => {
 
 // NEWSPAPERS MODULE
 app.get(['/Newspaper', '/Newspaper/Index'], (req, res) => {
-    res.render('newspaper_index', { newspapers });
+    let searchQuery = req.query.searchQuery || '';
+    let page = parseInt(req.query.page) || 1;
+    const pageSize = 5;
+
+    let filteredNewspapers = [...newspapers];
+
+    // Apply search filter if searchQuery exists
+    if (searchQuery.trim()) {
+        const query = searchQuery.trim().toLowerCase();
+        filteredNewspapers = filteredNewspapers.filter(n => 
+            (n.title && n.title.toLowerCase().includes(query)) ||
+            (n.publisher && n.publisher.toLowerCase().includes(query)) ||
+            (n.language && n.language.toLowerCase().includes(query)) ||
+            (n.category && n.category.toLowerCase().includes(query))
+        );
+    }
+
+    // Pagination calculations
+    const totalItems = filteredNewspapers.length;
+    const totalPages = Math.ceil(totalItems / pageSize);
+    if (page < 1) page = 1;
+    if (page > totalPages && totalPages > 0) page = totalPages;
+
+    const offset = (page - 1) * pageSize;
+    const paginatedNewspapers = filteredNewspapers.slice(offset, offset + pageSize);
+
+    res.render('newspaper_index', { 
+        newspapers: paginatedNewspapers, 
+        searchQuery: searchQuery,
+        currentPage: page,
+        totalPages: totalPages
+    });
 });
 
 app.get('/Newspaper/Create', (req, res) => {
@@ -306,7 +414,37 @@ app.get('/Newspaper/Delete/:id', (req, res) => {
 
 // MAGAZINES MODULE
 app.get(['/Magazine', '/Magazine/Index'], (req, res) => {
-    res.render('magazine_index', { magazines });
+    let searchQuery = req.query.searchQuery || '';
+    let page = parseInt(req.query.page) || 1;
+    const pageSize = 5;
+
+    let filteredMagazines = [...magazines];
+
+    // Apply search filter if searchQuery exists
+    if (searchQuery.trim()) {
+        const query = searchQuery.trim().toLowerCase();
+        filteredMagazines = filteredMagazines.filter(m => 
+            (m.title && m.title.toLowerCase().includes(query)) ||
+            (m.publisher && m.publisher.toLowerCase().includes(query)) ||
+            (m.genre && m.genre.toLowerCase().includes(query))
+        );
+    }
+
+    // Pagination calculations
+    const totalItems = filteredMagazines.length;
+    const totalPages = Math.ceil(totalItems / pageSize);
+    if (page < 1) page = 1;
+    if (page > totalPages && totalPages > 0) page = totalPages;
+
+    const offset = (page - 1) * pageSize;
+    const paginatedMagazines = filteredMagazines.slice(offset, offset + pageSize);
+
+    res.render('magazine_index', { 
+        magazines: paginatedMagazines, 
+        searchQuery: searchQuery,
+        currentPage: page,
+        totalPages: totalPages
+    });
 });
 
 app.get('/Magazine/Create', (req, res) => {
@@ -419,7 +557,37 @@ app.post('/Borrow/Return', (req, res) => {
 
 // STUDENT MODULE
 app.get(['/Student', '/Student/Index'], (req, res) => {
-    res.render('student_index', { students });
+    let searchTerm = req.query.searchTerm || '';
+    let page = parseInt(req.query.page) || 1;
+    const pageSize = 5;
+
+    let filteredStudents = [...students];
+
+    // Apply search filter if searchTerm exists
+    if (searchTerm.trim()) {
+        const term = searchTerm.trim().toLowerCase();
+        filteredStudents = filteredStudents.filter(s => 
+            (s.studentName && s.studentName.toLowerCase().includes(term)) ||
+            (s.email && s.email.toLowerCase().includes(term)) ||
+            (s.phone && s.phone.toLowerCase().includes(term))
+        );
+    }
+
+    // Pagination calculations
+    const totalItems = filteredStudents.length;
+    const totalPages = Math.ceil(totalItems / pageSize);
+    if (page < 1) page = 1;
+    if (page > totalPages && totalPages > 0) page = totalPages;
+
+    const offset = (page - 1) * pageSize;
+    const paginatedStudents = filteredStudents.slice(offset, offset + pageSize);
+
+    res.render('student_index', { 
+        students: paginatedStudents, 
+        searchTerm: searchTerm,
+        currentPage: page,
+        totalPages: totalPages
+    });
 });
 
 app.get('/Student/Create', (req, res) => {
@@ -461,7 +629,35 @@ app.get('/Student/Delete/:id', (req, res) => {
 
 // LIBRARIAN MODULE
 app.get(['/Librarian', '/Librarian/Index'], (req, res) => {
-    res.render('librarian_index', { librarians });
+    let searchTerm = req.query.searchTerm || '';
+    let page = parseInt(req.query.page) || 1;
+    const pageSize = 5;
+
+    let filteredLibrarians = [...librarians];
+
+    // Apply search filter if searchTerm exists
+    if (searchTerm.trim()) {
+        const term = searchTerm.trim().toLowerCase();
+        filteredLibrarians = filteredLibrarians.filter(l => 
+            (l.name && l.name.toLowerCase().includes(term))
+        );
+    }
+
+    // Pagination calculations
+    const totalItems = filteredLibrarians.length;
+    const totalPages = Math.ceil(totalItems / pageSize);
+    if (page < 1) page = 1;
+    if (page > totalPages && totalPages > 0) page = totalPages;
+
+    const offset = (page - 1) * pageSize;
+    const paginatedLibrarians = filteredLibrarians.slice(offset, offset + pageSize);
+
+    res.render('librarian_index', { 
+        librarians: paginatedLibrarians, 
+        searchTerm: searchTerm,
+        currentPage: page,
+        totalPages: totalPages
+    });
 });
 
 app.get('/Librarian/Create', (req, res) => {
