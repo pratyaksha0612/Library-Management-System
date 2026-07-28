@@ -1186,3 +1186,12 @@ code {
 [data-theme="light"] .table tbody tr:hover {
     background: #cbd5e1 !important;
 }
+
+/* Hide vertical scrollbar completely */
+body::-webkit-scrollbar {
+    display: none;
+}
+body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}

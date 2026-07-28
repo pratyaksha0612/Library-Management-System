@@ -67,6 +67,45 @@ node server.js
 Then open your browser and navigate to:
 **http://localhost:5000**
 
+
+## Application Interface Gallery
+
+### Login Interface
+![Login Dark Mode](screenshots/01_login_dark.png)
+<br>
+![Login Light Mode](screenshots/02_login_light.png)
+
+### Dashboard First Look
+![Dashboard Top Dark Mode](screenshots/03_dashboard_top_dark.png)
+<br>
+![Dashboard Top Light Mode](screenshots/04_dashboard_top_light.png)
+
+### Administrative Dashboard
+![Dashboard Statistics & Timeline](screenshots/05_dashboard_middle_dark.png)
+<br>
+![Dashboard Popular Reads](screenshots/06_dashboard_bottom_dark.png)
+
+### Library Catalog & Operations
+![Books Directory](screenshots/07_books_dark.png)
+<br>
+![Books Directory Details](screenshots/08_books_scroll_dark.png)
+<br>
+![Newspapers Directory](screenshots/09_newspapers_dark.png)
+<br>
+![Magazines Directory](screenshots/10_magazines_dark.png)
+
+### Members & Staff Management
+![Students Directory](screenshots/11_students_dark.png)
+<br>
+![Librarians Directory](screenshots/12_librarians_dark.png)
+<br>
+![User Profile](screenshots/15_profile_dark.png)
+
+### Organization Portal
+![About Us](screenshots/13_about_us_dark.png)
+<br>
+![Contact Us](screenshots/14_contact_us_dark.png)
+
 ## Directory Layout
 
 ```
