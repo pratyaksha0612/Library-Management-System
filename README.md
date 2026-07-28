@@ -20,40 +20,41 @@ Access the application using any of the following accounts:
 ## Features & Highlights
 
 1. **Clean Login Page & Session Authorization**:
-   - **First Page = Login Screen**: Unauthenticated users attempting to visit guarded routes are automatically redirected to `/Login`.
-   - **Conditional Navigation**: Logout buttons and system links are displayed for authorized active sessions.
+   * **First Page = Login Screen**: Unauthenticated users attempting to visit guarded routes are automatically redirected to `/Login`.
+   * **Conditional Navigation**: Logout buttons and system links are displayed for authorized active sessions.
 
 2. **Subtle Executive Pastel Design System**:
-   - **Soft Pastel Palettes**: Light Mode utilizes soft alabaster cream, muted lavender, sage, and warm gold accents. Dark Mode utilizes darkened pastel slate tones without pure black for a professional, subtle look.
-   - **High-Contrast Dark Mode**: Crisp silver and white typography ensures perfect legibility across all screens.
-   - **Zero Horizontal Scroll**: Optimized responsive layout ensuring all cards and tables fit smoothly within screen bounds by default.
+   * **Soft Pastel Palettes**: Light Mode utilizes soft alabaster cream, muted lavender, slate blue, sage, and warm gold accents. Dark Mode utilizes darkened pastel slate tones without pure black for a professional, subtle look.
+   * **High-Contrast Dark Mode**: Crisp silver and white typography ensures perfect legibility across all screens.
+   * **Responsive Container Widths**: Optimized layout ensuring all cards and tables fit smoothly within screen bounds by default, hugging content seamlessly without annoying horizontal scrollbars on modern monitors.
 
 3. **Indian Rupees (₹ / INR) Currency**:
-   - All price fields across Books, Newspapers, Magazines, Fines, and Subscriptions strictly display in Indian Rupees (₹).
+   * All price fields across Books, Newspapers, Magazines, Fines, and Subscriptions strictly display in Indian Rupees (₹).
 
 4. **Portfolio & Enterprise Features**:
-   - **Book Thumbnail Covers**: Visual book cover thumbnails displayed directly in the Books catalog directory.
-   - **Overdue Fine Estimator**: Interactive calculator computing late return fees in ₹ INR (at ₹10/day fine rate).
-   - **Category & Genre Filter Tabs**: Quick filter tab bars to filter catalog items instantly.
-   - **Recent System Activity Timeline**: Real-time system activity log card on the main dashboard.
-   - **1-Click CSV & JSON Data Export**: Export library catalog data directly into `.csv` and `.json` files.
-   - **About Us & Contact Us Modules**: Comprehensive organizational overview and interactive contact inquiry desk.
+   * **Book Thumbnail Covers**: Visual book cover thumbnails displayed directly in the Books catalog directory.
+   * **Overdue Fine Estimator**: Interactive calculator computing late return fees in ₹ INR (at ₹10/day fine rate).
+   * **Category & Genre Filter Tabs**: Quick filter tab bars to filter catalog items instantly.
+   * **Recent System Activity Timeline**: Real-time system activity log card on the main dashboard.
+   * **1-Click CSV & JSON Data Export**: Export library catalog data directly into `.csv` and `.json` files.
+   * **About Us & Contact Us Modules**: Comprehensive organizational overview and interactive contact inquiry desk.
+   * **Extended Datasets**: Loaded with rich metadata for multiple genres, publishers, and language editions.
 
 5. **Modules Included**:
-   - **Books Module**: Book collection management with thumbnail covers, ISBN single-line display, borrowing/return workflow, and fine calculator.
-   - **Newspapers Module**: Daily periodicals, publisher details, language, subscription types, and daily prices in ₹.
-   - **Magazines Module**: Weekly, fortnightly, and monthly magazine issues, genre domain, issue codes, and subscription prices in ₹.
-   - **Students Directory**: Registered student member directory and profile management.
-   - **Librarians Directory**: Library staff directory, age metrics, and operational staff assignments.
-   - **About Us Module**: Organizational history, core mission statements, and administrative structure.
-   - **Contact Us Module**: Interactive help desk inquiry submission form and library office details.
-   - **Admin Dashboard**: Stat metrics, recent activity timeline, and quick fine estimator widget.
+   * **Books Module**: Book collection management with thumbnail covers, ISBN single-line display, borrowing/return workflow, and fine calculator.
+   * **Newspapers Module**: Daily periodicals, publisher details, language, subscription types, and daily prices in ₹.
+   * **Magazines Module**: Weekly, fortnightly, and monthly magazine issues, genre domain, issue codes, and subscription prices in ₹.
+   * **Students Directory**: Registered student member directory and profile management.
+   * **Librarians Directory**: Library staff directory, age metrics, and operational staff assignments.
+   * **About Us Module**: Organizational history, core mission statements, and administrative structure.
+   * **Contact Us Module**: Interactive help desk inquiry submission form and library office details.
+   * **Admin Dashboard**: Stat metrics, recent activity timeline, and quick fine estimator widget.
 
 ## Technology Stack
 
-- **Backend / Web Server**: Node.js, Express, `express-session`, EJS View Engine
-- **Styling & Icons**: Bootstrap 5, Bootstrap Icons, Custom CSS3 Design System with Variables, SVG Vector Graphics
-- **Currency**: Indian Rupees (₹ / INR)
+* **Backend / Web Server**: Node.js, Express, `express-session`, EJS View Engine
+* **Styling & Icons**: Bootstrap 5, Bootstrap Icons, Custom CSS3 Design System with Variables, SVG Vector Graphics, Google Fonts (Montserrat, Cinzel)
+* **Currency**: Indian Rupees (₹ / INR)
 
 ## Running on Localhost
 
@@ -81,6 +82,7 @@ Library Management System/
 │   ├── contact.ejs
 │   └── login.ejs
 ├── public/css/style.css      # Pastel Design System CSS
+├── screenshots/              # Folder for application demo screenshots
 ├── server.js                 # Express Localhost Server with Auth Guard
 ├── package.json              # Dependencies Manifest
 └── README.md                 # Project Documentation
