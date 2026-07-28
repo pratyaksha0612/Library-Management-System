@@ -164,9 +164,8 @@
         updateDateTime();
         setInterval(updateDateTime, 60000);
 
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        const textColor = isDark ? '#ffffff' : '#1a1f1d';
-        const gridColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+        const textColor = '#5a6b63'; // Neutral color visible on both themes
+        const gridColor = 'rgba(128,128,128,0.15)';
 
         // Line Chart: Circulation Trends
         const ctxTrends = document.getElementById('trendsChart').getContext('2d');

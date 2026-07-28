@@ -15,7 +15,7 @@
 
     /* Light Theme (Warm Off-White & Sage Green) */
     --bg-main: #F4F7F6; /* Soft off-white to reduce glare */
-    --bg-card: #ffffff;
+    --bg-card: #cbd5e1;
     --bg-nav: #0b1512;
     --bg-nav-override: #04110b; /* Darker green */
     --nav-text: #ffffff;
@@ -305,7 +305,7 @@ h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Cinzel', serif !important;
     color: var(--btn-primary-text) !important;
     border: none !important;
     padding: 0.75rem 1.5rem;
-    border-radius: 8px;
+    border-radius: 0;
     font-weight: 600;
     font-size: 0.95rem;
     transition: all 0.2s ease;
@@ -523,7 +523,7 @@ code {
     padding: 0.45rem 0.95rem;
     font-size: 0.82rem;
     font-weight: 600;
-    border-radius: 8px;
+    border-radius: 0;
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
@@ -657,7 +657,7 @@ code {
     padding: 0.35rem 0.65rem;
     font-size: 0.78rem;
     font-weight: 600;
-    border-radius: 8px;
+    border-radius: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1111,7 +1111,7 @@ code {
 .table {
     font-family: 'Montserrat', sans-serif !important;
     border-collapse: separate !important;
-    border-spacing: 0 12px !important; /* Space between rows */
+    border-spacing: 0 4px !important; /* Space between rows */
     width: 100% !important;
     margin-bottom: 0 !important;
 }
@@ -1128,7 +1128,7 @@ code {
 .table tbody tr {
     background: rgba(150, 150, 150, 0.05) !important; /* Subtle background for row */
     box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-    border-radius: 8px;
+    border-radius: 0;
     transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 .table tbody tr:hover {
@@ -1138,7 +1138,7 @@ code {
 }
 .table tbody td {
     border: none !important;
-    padding: 1.2rem 1.5rem !important;
+    padding: 0.6rem 1rem !important;
     vertical-align: middle;
     font-weight: 500 !important;
     color: var(--text-primary) !important;
@@ -1146,12 +1146,12 @@ code {
 }
 /* Rounded corners for the row items */
 .table tbody td:first-child {
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 .table tbody td:last-child {
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 /* Fix Bootstrap background override */

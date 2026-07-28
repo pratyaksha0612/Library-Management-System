@@ -70,9 +70,7 @@
                              alt="<%= book.title %> Cover" class="img-fluid"
                              style="width: 100%; height: auto; aspect-ratio: 2/3; object-fit: cover; border-top-left-radius: 14px; border-top-right-radius: 14px; <%= !book.isAvailable ? 'filter: grayscale(100%); opacity: 0.7;' : '' %>"
                              onerror="this.src='https://via.placeholder.com/300x450/2E6F57/ffffff?text=Book+Cover'" />
-                        <% if (!book.isAvailable) { %>
-                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-10deg); background: rgba(0,0,0,0.85); color: #fff; padding: 10px 0; font-weight: 800; border: 2px solid #fff; border-radius: 4px; width: 90%; text-align: center; letter-spacing: 2px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">OUT OF STOCK</div>
-                        <% } %>
+                        
                         <!-- Absolute positioned status badge -->
                         <div style="position: absolute; top: 10px; right: 10px; z-index: 2;">
                             <% if (book.isAvailable) { %>
