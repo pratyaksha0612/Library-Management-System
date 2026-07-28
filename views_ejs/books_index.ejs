@@ -64,10 +64,14 @@
                  
                 <div class="book-card-vertical">
                     <!-- FULL-BLEED COVER FRAME -->
-                    <div class="book-cover-frame">
+                    <div class="book-cover-frame" style="position: relative;">
                         <img src="<%= book.coverImage || 'https://covers.openlibrary.org/b/isbn/' + book.isbn.replace(/-/g,'') + '-M.jpg' %>" 
                              alt="<%= book.title %> Cover" 
+                             style="<%= !book.isAvailable ? 'filter: grayscale(100%); opacity: 0.7;' : '' %>"
                              onerror="this.src='https://via.placeholder.com/300x400/2E6F57/ffffff?text=Book+Cover'" />
+                        <% if (!book.isAvailable) { %>
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-10deg); background: rgba(0,0,0,0.85); color: #fff; padding: 10px 0; font-weight: 800; border: 2px solid #fff; border-radius: 4px; width: 90%; text-align: center; letter-spacing: 2px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">OUT OF STOCK</div>
+                        <% } %>
                     </div>
 
                     <!-- CARD CONTENT DETAILS -->
@@ -132,23 +136,7 @@
     </div>
 
     <!-- Pagination Controls -->
-    <% if (totalPages > 1) { %>
-        <nav aria-label="Books navigation" class="mt-4">
-            <ul class="pagination justify-content-center">
-                <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
-                    <a class="page-link" href="/Books/Index?searchQuery=<%= searchQuery %>&page=<%= currentPage - 1 %>">Previous</a>
-                </li>
-                <% for (let i = 1; i <= totalPages; i++) { %>
-                    <li class="page-item <%= currentPage === i ? 'active' : '' %>">
-                        <a class="page-link" href="/Books/Index?searchQuery=<%= searchQuery %>&page=<%= i %>"><%= i %></a>
-                    </li>
-                <% } %>
-                <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
-                    <a class="page-link" href="/Books/Index?searchQuery=<%= searchQuery %>&page=<%= currentPage + 1 %>">Next</a>
-                </li>
-            </ul>
-        </nav>
-    <% } %>
+    <!-- Pagination removed per new requirements -->
 </div>
 
 <!-- CLICKABLE BOOK DETAILS MODAL -->

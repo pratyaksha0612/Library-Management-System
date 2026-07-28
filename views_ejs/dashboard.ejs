@@ -3,17 +3,15 @@
 <div class="container-fluid px-4 py-5" style="max-width: 1200px; margin: 0 auto;">
     <% if (flashMessage) { %>
         <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mb-4" role="alert" style="background: var(--bg-card); color: var(--text-primary); border-left: 4px solid var(--btn-primary-bg) !important;">
-            <i class="bi bi-info-circle-fill me-2" style="color: var(--btn-primary-bg);"></i> <%= flashMessage %>
+            <i class="bi bi-info-circle-fill me-2" style="color: var(--btn-primary-bg);"></i> <%- flashMessage %>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <% } %>
 
     <!-- MINIMAL HERO SECTION -->
     <div class="text-center mb-5 pb-3">
-        <img src="/images/logo-dark.png.png" alt="Kitaab Library" class="brand-logo-light mx-auto mb-3" style="height: 80px; object-fit: contain;">
-        <img src="/images/logo-white.png.png" alt="Kitaab Library" class="brand-logo-dark mx-auto mb-3" style="height: 80px; object-fit: contain;">
-        <h1 class="display-5 fw-bold font-heading mb-2">Welcome back, <%= user ? user.name.split(' ')[0] : 'Reader' %></h1>
-        <p class="text-secondary fs-5" style="max-width: 600px; margin: 0 auto;">Continue exploring knowledge, manage your collection, and discover new books.</p>
+        <img src="/images/logo-dark.png.png" alt="Kitaab Library" class="brand-logo-light mx-auto mb-3" style="height: 320px; object-fit: contain;">
+        <img src="/images/logo-white.png.png" alt="Kitaab Library" class="brand-logo-dark mx-auto mb-3" style="height: 320px; object-fit: contain;">
     </div>
 
     <!-- QUICK ACTIONS (Minimal) -->
@@ -38,7 +36,9 @@
                 </div>
             </div>
             <div class="custom-card p-4 h-100" style="min-height: 350px;">
-                <canvas id="trendsChart"></canvas>
+                <div style="position: relative; height: 100%; width: 100%; min-height: 300px;">
+                    <canvas id="trendsChart"></canvas>
+                </div>
             </div>
         </div>
 
@@ -78,9 +78,27 @@
             </div>
         </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- POPULAR READS SECTION -->
+    <div class="mt-5">
+        <h4 class="font-heading fw-bold mb-4">Popular Reads</h4>
+        <div class="row g-4">
+            <% if (model.topBooks && model.topBooks.length > 0) { %>
+                <% model.topBooks.forEach(book => { %>
+                    <div class="col-6 col-md-3">
+                        <div class="custom-card h-100 p-3 text-center" style="transition: transform 0.3s ease;">
+                            <img src="<%= book.coverImage %>" alt="<%= book.title %>" class="img-fluid rounded mb-3" style="max-height: 200px; object-fit: contain;">
+                            <h6 class="fw-bold mb-1 text-truncate"><%= book.title %></h6>
+                            <p class="text-secondary small mb-0"><%= book.author %></p>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p class="text-muted">No popular books found.</p>
+            <% } %>
+        </div>
+    </div>
+</div><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';

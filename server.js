@@ -139,7 +139,7 @@ app.post('/Login/Verify', (req, res) => {
     if (user) {
         req.session.isLoggedIn = true;
         req.session.user = user;
-        flashMessage = `Welcome back, ${user.name}! Authenticated to PS Library.`;
+        flashMessage = `Welcome back, <span style="font-family: 'Cinzel', serif; font-weight: 700;">${user.name}</span>! Authenticated to PS Library.`;
         res.redirect('/Dashboard');
     } else {
         res.render('login', { message: "Invalid username or password. Please try again." });
@@ -180,7 +180,7 @@ app.post('/register', (req, res) => {
     logintab.push(newUser);
 
     // Option 1: Redirect to Login with a success toast
-    flashMessage = "Account created successfully. Please sign in.";
+    flashMessage = `Account created successfully. Please sign in.`;
     res.redirect('/Login');
 });
 
@@ -194,12 +194,15 @@ app.get(['/Login/Logout', '/Logout'], (req, res) => {
 // ALL PROTECTED ROUTES BELOW REQUIRE AUTHENTICATION
 app.use(requireAuth);
 
-// DASHBOARD MODULE WITH CHART METRICS
+// DASHBOARD MODULE
 app.get(['/Dashboard', '/Dashboard/Index'], (req, res) => {
+    if (!req.session.user) return res.redirect('/Login');
+
+    const topBooks = books.slice(0, 4);
+
     const model = {
-        totalStudents: students.length,
         totalBooks: books.length,
-        totalLibrarians: librarians.length,
+        totalStudents: students.length,
         totalBorrowings: borrowRecords.filter(b => !b.returnDate).length,
         totalNewspapers: newspapers.length,
         totalMagazines: magazines.length,
@@ -207,21 +210,16 @@ app.get(['/Dashboard', '/Dashboard/Index'], (req, res) => {
         monthlyTrends: {
             labels: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
             borrowed: [32, 45, 38, 52, 60, borrowRecords.length + 42],
-            returned: [28, 40, 35, 48, 55, 39]
+            returned: [28, 40, 36, 48, 55, borrowRecords.filter(b => b.returnDate).length + 38]
         },
-        distribution: {
-            labels: ['Books Catalog', 'Newspapers', 'Magazines', 'Active Borrowings'],
-            data: [books.length, newspapers.length, magazines.length, borrowRecords.filter(b => !b.returnDate).length]
-        }
+        topBooks: topBooks
     };
-    res.render('dashboard', { model });
+    res.render('dashboard', { model, user: req.session.user });
 });
 
 // BOOKS MODULE
 app.get(['/Books', '/Books/Index'], (req, res) => {
     let searchQuery = req.query.searchQuery || '';
-    let page = parseInt(req.query.page) || 1;
-    const pageSize = 5;
 
     // Map active borrow records first
     let filteredBooks = books.map(b => {
@@ -239,20 +237,9 @@ app.get(['/Books', '/Books/Index'], (req, res) => {
         );
     }
 
-    // Pagination calculations
-    const totalItems = filteredBooks.length;
-    const totalPages = Math.ceil(totalItems / pageSize);
-    if (page < 1) page = 1;
-    if (page > totalPages && totalPages > 0) page = totalPages;
-
-    const offset = (page - 1) * pageSize;
-    const paginatedBooks = filteredBooks.slice(offset, offset + pageSize);
-
     res.render('books_index', { 
-        books: paginatedBooks, 
-        searchQuery: searchQuery,
-        currentPage: page,
-        totalPages: totalPages
+        books: filteredBooks, 
+        searchQuery: searchQuery
     });
 });
 
