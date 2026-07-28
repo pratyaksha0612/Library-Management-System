@@ -25,7 +25,7 @@
     --text-muted: #788f85;
     
     --border-color: #e2e6e3;
-    --card-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.15);
+    --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
     
     --btn-primary-bg: #1B5E20; /* Pop of vibrant green */
     --btn-primary-hover: #144917;
@@ -56,7 +56,7 @@
     --text-muted: #788f85;
     
     --border-color: rgba(255, 255, 255, 0.06);
-    --card-shadow: 0 4px 15px rgba(255, 255, 255, 0.08);
+    --card-shadow: 0 8px 30px rgba(255, 255, 255, 0.2);
     
     --btn-primary-bg: #2E6F57; /* Dark green for pop of color */
     --btn-primary-hover: #3C876A;
@@ -520,8 +520,8 @@ code {
 }
 
 .btn-action-custom {
-    padding: 0.45rem 0.95rem;
-    font-size: 0.82rem;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.75rem;
     font-weight: 600;
     border-radius: 0;
     display: inline-flex;
@@ -1160,4 +1160,11 @@ code {
 .table > :not(caption) > * > * {
     background-color: transparent !important;
     box-shadow: none !important;
+}
+
+
+/* Light mode table header */
+[data-theme="light"] .table thead th {
+    background-color: #94a3b8 !important;
+    color: #0b3d5c !important;
 }
