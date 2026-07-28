@@ -217,6 +217,28 @@ app.get(['/Dashboard', '/Dashboard/Index'], (req, res) => {
     res.render('dashboard', { model, user: req.session.user });
 });
 
+// PROFILE MODULE
+app.get('/Profile', (req, res) => {
+    if (!req.session.user) return res.redirect('/Login');
+    res.render('profile', { user: req.session.user });
+});
+
+app.post('/Profile/Update', (req, res) => {
+    if (!req.session.user) return res.redirect('/Login');
+    
+    // Simple update logic for demonstration
+    const { name, email } = req.body;
+    const userIndex = logintab.findIndex(u => u.username === req.session.user.username);
+    if (userIndex !== -1) {
+        logintab[userIndex].name = name || logintab[userIndex].name;
+        logintab[userIndex].email = email || logintab[userIndex].email;
+        req.session.user = logintab[userIndex];
+    }
+    
+    flashMessage = "Profile updated successfully!";
+    res.redirect('/Profile');
+});
+
 // BOOKS MODULE
 app.get(['/Books', '/Books/Index'], (req, res) => {
     let searchQuery = req.query.searchQuery || '';

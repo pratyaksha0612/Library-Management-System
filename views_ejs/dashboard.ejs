@@ -1,17 +1,13 @@
 <%- include('header') %>
 
 <div class="container-fluid px-4 py-5" style="max-width: 1200px; margin: 0 auto;">
-    <% if (flashMessage) { %>
-        <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mb-4" role="alert" style="background: var(--bg-card); color: var(--text-primary); border-left: 4px solid var(--btn-primary-bg) !important;">
-            <i class="bi bi-info-circle-fill me-2" style="color: var(--btn-primary-bg);"></i> <%- flashMessage %>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    <% } %>
-
     <!-- MINIMAL HERO SECTION -->
-    <div class="text-center mb-5 pb-3">
-        <img src="/images/logo-dark.png.png" alt="Kitaab Library" class="brand-logo-light mx-auto mb-3" style="height: 320px; object-fit: contain;">
-        <img src="/images/logo-white.png.png" alt="Kitaab Library" class="brand-logo-dark mx-auto mb-3" style="height: 320px; object-fit: contain;">
+    <div class="text-center mb-4 pb-2" style="margin-top: -20px;">
+        <img src="/images/logo-dark.png.png" alt="Library" class="brand-logo-light mx-auto mb-2" style="height: 320px; object-fit: contain;">
+        <img src="/images/logo-white.png.png" alt="Library" class="brand-logo-dark mx-auto mb-2" style="height: 320px; object-fit: contain;">
+        <% if (user && user.name) { %>
+            <h1 class="display-6 fw-bold mb-0 font-heading">Welcome back, <span class="font-special" style="color: var(--btn-primary-bg);"><%= user.name.split(' ')[0] %></span></h1>
+        <% } %>
     </div>
 
     <!-- QUICK ACTIONS (Minimal) -->
@@ -35,8 +31,8 @@
                     <span>Members: <%= model.totalStudents %></span>
                 </div>
             </div>
-            <div class="custom-card p-4 h-100" style="min-height: 350px;">
-                <div style="position: relative; height: 100%; width: 100%; min-height: 300px;">
+            <div class="custom-card p-4 d-flex flex-column" style="height: 400px;">
+                <div style="flex-grow: 1; position: relative; width: 100%;">
                     <canvas id="trendsChart"></canvas>
                 </div>
             </div>
@@ -102,8 +98,8 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        const textColor = isDark ? '#9DB2AA' : '#4a5d54';
-        const gridColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)';
+        const textColor = isDark ? '#ffffff' : '#1a1f1d';
+        const gridColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
 
         // Line Chart: Circulation Trends
         const ctxTrends = document.getElementById('trendsChart').getContext('2d');

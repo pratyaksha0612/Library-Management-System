@@ -14,6 +14,7 @@
     --bg-main: #ffffff; /* Login page right column bg */
     --bg-card: #ffffff;
     --bg-nav: #0b1512;
+    --bg-nav-override: #04110b; /* Darker green */
     --nav-text: #ffffff;
     
     --text-primary: #1a1f1d;
@@ -42,6 +43,7 @@
     --bg-main: linear-gradient(135deg, #1c182c 0%, #100d1b 100%); /* Login page background color */
     --bg-card: rgba(18, 33, 29, 0.8);
     --bg-nav: #08100E;
+    --bg-nav-override: #04110b; /* Darker green */
     --nav-text: #ffffff;
     
     --text-primary: #ffffff;
