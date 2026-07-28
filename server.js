@@ -389,7 +389,13 @@ let newspapers = [
     { newspaperId: 5, title: "Business Standard", publisher: "Business Standard Private Limited", language: "English", category: "Business", dailyPrice: 10, subscriptionType: "Daily", publishDate: "2026-07-28", isAvailable: true },
     { newspaperId: 6, title: "Mint", publisher: "HT Media", language: "English", category: "Business", dailyPrice: 10, subscriptionType: "Daily", publishDate: "2026-07-28", isAvailable: true },
     { newspaperId: 7, title: "Dainik Jagran", publisher: "Jagran Prakashan", language: "Hindi", category: "National Daily", dailyPrice: 5, subscriptionType: "Daily", publishDate: "2026-07-28", isAvailable: true },
-    { newspaperId: 8, title: "Amar Ujala", publisher: "Amar Ujala Publications", language: "Hindi", category: "National Daily", dailyPrice: 5, subscriptionType: "Daily", publishDate: "2026-07-28", isAvailable: true }
+    { newspaperId: 8, title: "Amar Ujala", publisher: "Amar Ujala Publications", language: "Hindi", category: "National Daily", dailyPrice: 5, subscriptionType: "Daily", publishDate: "2026-07-28", isAvailable: true },
+    { newspaperId: 10, title: 'The Hindu Business Line', publisher: 'Kasturi & Sons', language: 'English', category: 'Business', dailyPrice: 8, subscriptionType: 'Weekly', publishDate: '2026-07-28' },
+    { newspaperId: 11, title: 'Mint', publisher: 'HT Media', language: 'English', category: 'Business', dailyPrice: 9, subscriptionType: 'Daily', publishDate: '2026-07-28' },
+    { newspaperId: 12, title: 'Deccan Chronicle', publisher: 'Deccan Chronicle Holdings', language: 'English', category: 'National Daily', dailyPrice: 5, subscriptionType: 'Monthly', publishDate: '2026-07-28' },
+    { newspaperId: 13, title: 'The Statesman', publisher: 'The Statesman Ltd', language: 'English', category: 'National Daily', dailyPrice: 6, subscriptionType: 'Daily', publishDate: '2026-07-28' },
+    { newspaperId: 14, title: 'Dainik Bhaskar', publisher: 'Dainik Bhaskar Group', language: 'Hindi', category: 'National Daily', dailyPrice: 4, subscriptionType: 'Monthly', publishDate: '2026-07-28' },
+    { newspaperId: 15, title: 'Amar Ujala', publisher: 'Amar Ujala Ltd', language: 'Hindi', category: 'National Daily', dailyPrice: 4, subscriptionType: 'Daily', publishDate: '2026-07-28' },
 ];
 
 // Seed Data - Magazines (Price in ₹ INR)
@@ -399,7 +405,15 @@ let magazines = [
     { magazineId: 3, title: "Scientific American", publisher: "Springer Nature", issueNumber: "August 2026", genre: "Science", price: 300, frequency: "Monthly", publishDate: "2026-07-20", isAvailable: true },
     { magazineId: 4, title: "Forbes India", publisher: "Network18", issueNumber: "August 2026", genre: "Business", price: 200, frequency: "Fortnightly", publishDate: "2026-07-22", isAvailable: true },
     { magazineId: 5, title: "Frontline", publisher: "The Hindu Group", issueNumber: "August 2026", genre: "Current Affairs", price: 120, frequency: "Fortnightly", publishDate: "2026-07-24", isAvailable: true },
-    { magazineId: 6, title: "Outlook", publisher: "Outlook Publishing", issueNumber: "August 2026", genre: "News", price: 90, frequency: "Weekly", publishDate: "2026-07-26", isAvailable: true }
+    { magazineId: 6, title: "Outlook", publisher: "Outlook Publishing", issueNumber: "August 2026", genre: "News", price: 90, frequency: "Weekly", publishDate: "2026-07-26", isAvailable: true },
+    { magazineId: 8, title: 'Forbes India', publisher: 'Network18', language: 'English', category: 'Business', monthlyPrice: 200, subscriptionType: 'Yearly', publishDate: '2026-07-01' },
+    { magazineId: 9, title: 'Vogue India', publisher: 'Condé Nast', language: 'English', category: 'Fashion', monthlyPrice: 150, subscriptionType: 'Monthly', publishDate: '2026-07-01' },
+    { magazineId: 10, title: 'Digit', publisher: '9.9 Group', language: 'English', category: 'Technology', monthlyPrice: 125, subscriptionType: 'Yearly', publishDate: '2026-07-01' },
+    { magazineId: 11, title: 'Filmfare', publisher: 'Worldwide Media', language: 'English', category: 'Entertainment', monthlyPrice: 100, subscriptionType: 'Monthly', publishDate: '2026-07-01' },
+    { magazineId: 12, title: 'Outlook', publisher: 'Rajan Raheja Group', language: 'English', category: 'News', monthlyPrice: 90, subscriptionType: 'Yearly', publishDate: '2026-07-01' },
+    { magazineId: 13, title: 'Frontline', publisher: 'The Hindu Group', language: 'English', category: 'Current Affairs', monthlyPrice: 85, subscriptionType: 'Monthly', publishDate: '2026-07-01' },
+    { magazineId: 14, title: 'Competition Success Review', publisher: 'CSR', language: 'English', category: 'Education', monthlyPrice: 75, subscriptionType: 'Yearly', publishDate: '2026-07-01' },
+    { magazineId: 15, title: 'Sportstar', publisher: 'The Hindu Group', language: 'English', category: 'Sports', monthlyPrice: 80, subscriptionType: 'Monthly', publishDate: '2026-07-01' },
 ];
 
 let borrowRecords = [
