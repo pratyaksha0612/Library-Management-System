@@ -73,6 +73,19 @@
                         <% if (!book.isAvailable) { %>
                             <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-10deg); background: rgba(0,0,0,0.85); color: #fff; padding: 10px 0; font-weight: 800; border: 2px solid #fff; border-radius: 4px; width: 90%; text-align: center; letter-spacing: 2px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">OUT OF STOCK</div>
                         <% } %>
+                        <!-- Absolute positioned status badge -->
+                        <div style="position: absolute; top: 10px; right: 10px; z-index: 2;">
+                            <% if (book.isAvailable) { %>
+                                <span class="badge bg-success shadow-sm px-2 py-1" style="border-radius: 6px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.5px;">
+                                    <i class="bi bi-check-circle-fill me-1"></i> AVAILABLE
+                                </span>
+                            <% } else { %>
+                                <span class="badge bg-danger shadow-sm px-2 py-1" style="border-radius: 6px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.5px;">
+                                    <i class="bi bi-x-circle-fill me-1"></i> OUT OF STOCK
+                                </span>
+                            <% } %>
+                        </div>
+
                     </div>
 
                     <!-- CARD CONTENT DETAILS -->
@@ -80,15 +93,7 @@
                         <div>
                             <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
                                 <h5 class="book-title-heading" onclick="openBookModal(<%= JSON.stringify(book) %>)"><%= book.title %></h5>
-                                <% if (book.isAvailable) { %>
-                                    <span class="badge-custom badge-available px-2 py-0.5" style="font-size: 0.7rem;">
-                                        <i class="bi bi-check-circle-fill"></i> Available
-                                    </span>
-                                <% } else { %>
-                                    <span class="badge-custom badge-borrowed px-2 py-0.5" style="font-size: 0.7rem;">
-                                        <i class="bi bi-bookmark-fill"></i> Borrowed
-                                    </span>
-                                <% } %>
+                                
                             </div>
                             <div class="book-author-sub mb-2">by <%= book.author %></div>
                             

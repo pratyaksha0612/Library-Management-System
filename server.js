@@ -513,7 +513,7 @@ app.use(requireAuth);
 app.get(['/Dashboard', '/Dashboard/Index'], (req, res) => {
     if (!req.session.user) return res.redirect('/Login');
 
-    const topBooks = books.slice(0, 4);
+    const topBooks = books.slice(0, 6);
 
     const model = {
         totalBooks: books.length,

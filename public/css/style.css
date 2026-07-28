@@ -43,6 +43,8 @@
 
 [data-theme="dark"] {
     /* Dark Theme - Dark Blue and Forest Greens */
+    --welcome-name-color: #E0F7FA; /* Glowing white/cyan */
+    --welcome-name-shadow: 0 2px 15px #00E5FF; /* Cyan glow */
     --bg-main: #060B19; /* Darker blue background */
     --bg-card: rgba(18, 33, 29, 0.8);
     --bg-nav: #08100E;
