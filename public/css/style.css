@@ -7,7 +7,7 @@
 
 :root {
     --welcome-name-color: #000080;
-    --welcome-name-shadow: 0 2px 15px rgba(0, 255, 0, 0.4);
+    --welcome-name-shadow: 0 2px 15px rgba(0, 100, 0, 0.6); /* Darker green shadow */
     --font-heading: 'Inter', sans-serif;
     --font-body: 'Plus Jakarta Sans', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
@@ -1113,4 +1113,17 @@ code {
 .table-responsive {
     padding-left: 1.5rem !important;
     padding-right: 1.5rem !important;
+}
+
+/* Table Compaction */
+.table {
+    width: max-content !important; /* Make table only as wide as its content */
+    min-width: 60%;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+.table th, .table td {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+    white-space: nowrap; /* Prevent unnecessary wrapping */
 }
