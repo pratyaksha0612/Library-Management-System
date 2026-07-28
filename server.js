@@ -672,7 +672,7 @@ app.post(['/Books/Delete', '/Books/Delete/:id'], (req, res) => {
 app.get(['/Newspaper', '/Newspaper/Index'], (req, res) => {
     let searchQuery = req.query.searchQuery || '';
     let page = parseInt(req.query.page) || 1;
-    const pageSize = 5;
+    const pageSize = 1000;
 
     let filteredNewspapers = [...newspapers];
 
@@ -760,7 +760,7 @@ app.get('/Newspaper/Delete/:id', (req, res) => {
 app.get(['/Magazine', '/Magazine/Index'], (req, res) => {
     let searchQuery = req.query.searchQuery || '';
     let page = parseInt(req.query.page) || 1;
-    const pageSize = 5;
+    const pageSize = 1000;
 
     let filteredMagazines = [...magazines];
 
@@ -903,7 +903,7 @@ app.post('/Borrow/Return', (req, res) => {
 app.get(['/Student', '/Student/Index'], (req, res) => {
     let searchTerm = req.query.searchTerm || '';
     let page = parseInt(req.query.page) || 1;
-    const pageSize = 5;
+    const pageSize = 1000;
 
     let filteredStudents = [...students];
 
@@ -975,7 +975,7 @@ app.get('/Student/Delete/:id', (req, res) => {
 app.get(['/Librarian', '/Librarian/Index'], (req, res) => {
     let searchTerm = req.query.searchTerm || '';
     let page = parseInt(req.query.page) || 1;
-    const pageSize = 5;
+    const pageSize = 1000;
 
     let filteredLibrarians = [...librarians];
 

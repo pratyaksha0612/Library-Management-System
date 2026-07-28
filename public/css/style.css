@@ -1138,7 +1138,7 @@ code {
     background: rgba(150, 150, 150, 0.1) !important;
 }
 .table tbody td {
-    text-align: center !important;
+    
     border: none !important;
     padding: 0.6rem 1rem !important;
     vertical-align: middle;
